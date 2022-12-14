@@ -20,12 +20,14 @@ import re
 
 
 
+
 #---------------------------Développement---------------------------#
 
 class Interface():
     
-    def __init__(self):
-        
+    def __init__(self): 
+
+
         #Création de la fenêtre
         self.fenetre = Tk()
 
@@ -39,10 +41,13 @@ class Interface():
         self.Type = [("Fichier CSV", ".csv")]
         self.png = [("Fichier PNG", ".png")]
 
+        # Define Our Images
+        self.on = PhotoImage(file = "on.png")
+        self.off = PhotoImage(file = "off.png")
+        self.is_on=True
 
         #Création de la barre de menu
         self.menubar = Menu(self.fenetre)
-
 
         self.menu2 = Menu(self.menubar, tearoff=0)
         self.menubar.add_command(label="Aide", command=self.aide)
@@ -57,13 +62,13 @@ class Interface():
         self.ok = False
         self.oldcanvas = False
      
+        self.on_button = Button(self.fenetre, image = self.on, bd = 0, command = self.switch)
+        self.on_button.grid(row=6, column=1, padx=15, sticky=W)
     
     #Affichage de la fenêtre
     def run(self):
         self.contenuFenetre()
-        self.fenetre.mainloop()
-       
-        
+        self.fenetre.mainloop()  
         
     #Création de la fenêtre "Aide"
     def aide(self):
@@ -82,24 +87,45 @@ class Interface():
         if self.quitte == 'yes':
             self.fenetre.destroy()
 
-
+    #Reset la liste
     def reset(self):
         if self.oldcanvas:
             self.canvas.get_tk_widget().destroy()
-    
+
     #Création du formulaire
     def contenuFenetre(self):
 
-        self.titre = StringVar()
         
-        self.labelPhen = Label(self.fenetre, text = "Enter a phenotypic characteristic", font=('arial',9,'bold')).grid(row = 0, column = 0, padx=20, pady=15, sticky=W)
+        self.titre = StringVar()
+
+        #Create my label
+        self.labelPhen = Label(self.fenetre, text = "Entrer un charactère phenotypique", font=('arial',9,'bold')).grid(row = 0, column = 0, padx=20, pady=15, sticky=W)
         self.entryPhen = Entry(self.fenetre, bg='white', textvariable=self.titre).grid(row = 1, column = 0, padx=15, sticky=W)
 
         self.textArea= st.ScrolledText(self.fenetre).grid(row=1, column=2, padx=15, sticky=W)
 
-        buttonEnter = Button(self.fenetre, text = "Enter").grid(row = 3, column = 0, padx=15, pady=15, sticky=W)
-        buttonExport = Button(self.fenetre, text ="Export").grid(row = 3, column = 1, padx=15, sticky=W)
+        buttonEnter = Button(self.fenetre, text = "Entrer").grid(row = 3, column = 0, padx=15, pady=15, sticky=W)
+        buttonExport = Button(self.fenetre, text ="Exporter").grid(row = 3, column = 1, padx=15, sticky=W)
         
+
+    def switch(self):
+        
+        global is_on
+        #if my button was on
+        if self.is_on:
+            self.on_button.config(image = self.off)
+            self.labelPhen.config(text = "Enter a phenotypic characteristic")
+            self.buttonEnter.config(text = "Enter")
+            self.buttonExport.config(text ="Export")
+            is_on = False
+        
+        #if my button was off
+        else:
+            self.on_button.config(image = self.on)
+            self.labelPhen.config(text = "Entrer un caractère phénotypique")
+            self.buttonEnter.config(text = "Entrer")
+            self.buttonExport.config(text ="Exporter")
+            is_on = True        
         
 #---------------------------Run---------------------------#
 
