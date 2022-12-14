@@ -56,8 +56,7 @@ class Interface():
 
         self.ok = False
         self.oldcanvas = False
-    
-    
+     
     
     #Affichage de la fenêtre
     def run(self):
