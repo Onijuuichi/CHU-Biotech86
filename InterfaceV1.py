@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Mis à jour le 27/04/2022
 
-@author: ARRIVE Damien, GROUARD Arthur, PERARD Nolwenn, SCHNEIDEWIND Shanna
 """
 
 #---------------------------Modules à importer---------------------------#
