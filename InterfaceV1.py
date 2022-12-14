@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """
-
+Crée le 13/12/2022
+@Author : FERNANDES Manon, PERARD Nolwenn, ROUILLARD Solenne, SCHNEIDEWIND Shana
 """
 
 #---------------------------Modules à importer---------------------------#
@@ -15,15 +16,8 @@ import tkinter.scrolledtext as st
 
 import sys
 import json
-import seaborn as sns
-import pandas as pd
 import re
 
-from matplotlib.figure import Figure 
-import matplotlib.pyplot as plt
-
-from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg,  
-NavigationToolbar2Tk) 
 
 
 #---------------------------Développement---------------------------#
@@ -102,7 +96,7 @@ class Interface():
         self.labelPhen = Label(self.fenetre, text = "Enter a phenotypic characteristic", font=('arial',9,'bold')).grid(row = 0, column = 0, padx=20, pady=15, sticky=W)
         self.entryPhen = Entry(self.fenetre, bg='white', textvariable=self.titre).grid(row = 1, column = 0, padx=15, sticky=W)
 
-        self.textArea= scrolledtext.ScrolledText(self.fenetre).grid(row=1, column=2, padx=15, sticky=W)
+        self.textArea= st.ScrolledText(self.fenetre).grid(row=1, column=2, padx=15, sticky=W)
 
         buttonEnter = Button(self.fenetre, text = "Enter").grid(row = 3, column = 0, padx=15, pady=15, sticky=W)
         buttonExport = Button(self.fenetre, text ="Export").grid(row = 3, column = 1, padx=15, sticky=W)
