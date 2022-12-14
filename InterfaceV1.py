@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Crée le 13/12/2022
+MAJ le 14/12/2022
 @Author : FERNANDES Manon, PERARD Nolwenn, ROUILLARD Solenne, SCHNEIDEWIND Shanna
 """
 
@@ -56,8 +56,7 @@ class Interface():
 
         self.ok = False
         self.oldcanvas = False
-    
-    
+     
     
     #Affichage de la fenêtre
     def run(self):
