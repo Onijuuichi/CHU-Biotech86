@@ -33,7 +33,7 @@ class Interface():
         self.fenetre = Tk()
 
         #Donne un titre à la fenêtre
-        self.fenetre.title("CHU-Biotech86")
+        self.fenetre.title("Phen2HPO")
 
         #Donne la taille de la fenêtre
         self.fenetre.geometry("500x400")
