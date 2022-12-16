@@ -13,6 +13,7 @@ from tkinter import *
 from tkinter import filedialog
 from tkinter import messagebox
 import tkinter.scrolledtext as st
+import tkinter as tk
 
 import sys
 import json
@@ -100,12 +101,14 @@ class Interface():
         #Create my label
         self.labelPhen = Label(self.fenetre, text = "Entrer un charactère phenotypique", font=('arial',9,'bold'))
         self.labelPhen.grid(row = 0, column = 0, padx=20, pady=15, sticky=W)
-        self.entryPhen = Entry(self.fenetre, bg='white', textvariable=self.titre)
+        self.entryPhen = Entry(self.fenetre, bg='white')
         self.entryPhen.grid(row = 1, column = 0, padx=15, sticky=W)
 
-        self.textArea= st.ScrolledText(self.fenetre).grid(row=1, column=2, padx=15, sticky=W)
+        self.textArea= st.ScrolledText(self.fenetre)
+        self.textArea.grid(row=1, column=2, padx=15, sticky=W)
+        self.textArea.configure(state ='disabled')
 
-        self.buttonEnter = Button(self.fenetre, text = "Entrer")
+        self.buttonEnter = Button(self.fenetre, text = "Entrer", command=self.add_phenotype)
         self.buttonEnter.grid(row = 3, column = 0, padx=15, pady=15, sticky=W)
 
         self.buttonExport = Button(self.fenetre, text ="Exporter")
@@ -120,7 +123,7 @@ class Interface():
             self.labelPhen.config(text = "Enter a phenotypic characteristic")
             self.labelPhen.grid(row = 0, column = 0, padx=20, pady=15, sticky=W)
 
-            self.buttonEnter.config(text = "Enter")
+            self.buttonEnter.config(text = "Enter", command=self.add_phenotype)
             self.buttonEnter.grid(row = 3, column = 0, padx=15, pady=15, sticky=W)
 
             self.buttonExport.config(text ="Export")
@@ -141,8 +144,13 @@ class Interface():
             self.buttonExport.config(text ="Exporter")
             self.buttonExport.grid(row = 3, column = 1, padx=15, sticky=W)
             
-            self.is_on = True        
+            self.is_on = True 
         
+
+    def add_phenotype(self):
+        self.textArea.insert(tk.INSERT, "test")
+        print("test1")
+
 #---------------------------Run---------------------------#
 
     
