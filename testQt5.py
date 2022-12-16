@@ -11,8 +11,9 @@ class fenetre(QWidget):
         #Création et paramétrage de la fenêtre :
         super(fenetre, self).__init__()
         loadUi('fenetre.ui',self)
-        self.setWindowTitle('Notre Interface')
+        self.setWindowTitle('Phen2HPO')
 
+        #================= POUR L'AUTO-COMPLETION =====================================================================#
         #Création de la liste des mots qui seront suggérés à l'utilisateur :
         fichier_HPO = codecs.open("HPO_FR.txt", encoding='utf-8') #pour définir le fichier + accepter les accents avec 'utf-8'
         list_autocompletion = loadtxt(fichier_HPO, dtype=str, comments="#", delimiter="\n", unpack=False)
@@ -30,10 +31,15 @@ class fenetre(QWidget):
         #Ajout du completer à notre input pour la saisie "lineEdit"
         self.lineEdit.setCompleter(completer)
 
-        for txt in list_pheno:
+        #================= POUR AFFICHER LES PHENOTYPES CHOISIS =======================================================#
+        for txt in list_phenotype:
             QListWidgetItem(txt, self.listWidget)
 
-list_pheno = ["coucou","banana","anana"]
+
+
+
+list_phenotype = []
+#list_phenotype = ["coucou", "banana", "anana"]
 
 app=QApplication(sys.argv)
 widget=fenetre()
