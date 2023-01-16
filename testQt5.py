@@ -1,7 +1,8 @@
+import os
 import sys
-from PyQt5.QtCore import pyqtSlot
+from PyQt5.QtCore import pyqtSlot, QSize
 from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QApplication, QDialog, QListWidgetItem, QCompleter, QLineEdit, QWidget
+from PyQt5.QtWidgets import QApplication, QListWidgetItem, QCompleter, QWidget, QFileDialog
 from PyQt5.uic import loadUi
 from numpy import loadtxt
 import codecs
@@ -12,6 +13,7 @@ class fenetre(QWidget):
         super(fenetre, self).__init__()
         loadUi('fenetre.ui',self)
         self.setWindowTitle('Phen2HPO')
+        self.setFixedSize(self.size()); #pour ne pas pouvoir redimensionner la fenetre
 
         #================= POUR L'AUTO-COMPLETION =====================================================================#
         #Création de la liste des mots qui seront suggérés à l'utilisateur :
@@ -31,23 +33,34 @@ class fenetre(QWidget):
         #Ajout du completer à notre input pour la saisie "lineEdit"
         self.lineEdit.setCompleter(completer)
 
-        #================= POUR AFFICHER LES PHENOTYPES CHOISIS =======================================================#
-        for txt in list_phenotype:
-            QListWidgetItem(txt, self.listWidget)
+    @pyqtSlot()
+    def on_addButton_clicked(self):
+        #Ajoute l'élément dans la liste (visible sur l'interface) :
+        if self.lineEdit.text()!="":
+            QListWidgetItem(self.lineEdit.text(), self.listWidget)
 
+    @pyqtSlot()
+    def on_deleteButton_clicked(self):
+        listItems = self.listWidget.selectedItems() #Récupération des éléments sélectionnés
 
+        #Suppression des éléments de la liste qui sont sélectionnés:
+        if not listItems: return
+        for item in listItems:
+            self.listWidget.takeItem(self.listWidget.row(item)) #suppression des items de la liste
 
+    @pyqtSlot()
+    def on_exportButton_clicked(self):
+        #Création du fichier :
+        file_name, _ = QFileDialog.getSaveFileName(self, 'Save File', os.getenv('HOME'),"Text files (*.txt)")
+        if file_name != "":
+            with open(file_name, 'w') as f:
+                #Pour chaque élément de la liste:
+                for index in range(self.listWidget.count()):
+                    text = self.listWidget.item(index).text() #récupérer le texte
+                    f.write(text+"\n") #et l'ajouter dans le fichier
 
-list_phenotype = []
-#list_phenotype = ["coucou", "banana", "anana"]
 
 app=QApplication(sys.argv)
 widget=fenetre()
 widget.show()
 sys.exit(app.exec_())
-
-#Liste dynamique :
-#https://stackoverflow.com/questions/35074199/filling-a-qlistwidget-with-elements-from-a-dynamic-list
-
-#Manuel pour PyQt5 :
-#https://doc.qt.io/qtforpython-5/PySide2/QtWidgets/QCompleter.html#PySide2.QtWidgets.PySide2.QtWidgets.QCompleter.setFilterMode
