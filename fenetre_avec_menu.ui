@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>546</width>
+    <height>339</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QPushButton" name="deleteButton">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>270</y>
+      <width>201</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="text">
+     <string>Supprimer élément(s) sélectionné(s)</string>
+    </property>
+    <property name="checkable">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="exportButton">
+    <property name="geometry">
+     <rect>
+      <x>290</x>
+      <y>270</y>
+      <width>181</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="text">
+     <string>Enregistrer</string>
+    </property>
+    <property name="checkable">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QListWidget" name="listWidget_2">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>120</y>
+      <width>451</width>
+      <height>141</height>
+     </rect>
+    </property>
+    <property name="selectionMode">
+     <enum>QAbstractItemView::MultiSelection</enum>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>100</y>
+      <width>211</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Liste des phénotypes du patient</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>50</y>
+      <width>351</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="baseSize">
+     <size>
+      <width>30</width>
+      <height>30</height>
+     </size>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="addButton">
+    <property name="geometry">
+     <rect>
+      <x>380</x>
+      <y>50</y>
+      <width>91</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="text">
+     <string>Ajouter</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>30</y>
+      <width>211</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Veuillez-saisir un phénotype :</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>546</width>
+     <height>18</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuLanguage">
+    <property name="title">
+     <string>Langue</string>
+    </property>
+    <addaction name="actionFran_ais"/>
+    <addaction name="actionEnglish"/>
+   </widget>
+   <widget class="QMenu" name="menuAide">
+    <property name="title">
+     <string>Aide</string>
+    </property>
+   </widget>
+   <addaction name="menuLanguage"/>
+   <addaction name="menuAide"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionFran_ais">
+   <property name="text">
+    <string>Français</string>
+   </property>
+  </action>
+  <action name="actionEnglish">
+   <property name="text">
+    <string>English</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
