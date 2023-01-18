@@ -18,7 +18,8 @@ class fenetre(QWidget):
         #================= POUR L'AUTO-COMPLETION =====================================================================#
         #Création de la liste des mots qui seront suggérés à l'utilisateur :
         fichier_HPO = codecs.open("HPO_FR.txt", encoding='utf-8') #pour définir le fichier + accepter les accents avec 'utf-8'
-        list_autocompletion = loadtxt(fichier_HPO, dtype=str, comments="#", delimiter="\n", unpack=False)
+        list_autocompletion, trash = loadtxt(fichier_HPO, dtype=str, comments="$", delimiter="#", unpack=True)
+        print(list_autocompletion)
 
         #Création du 'completer' associé à la liste des mots/suggestions:
         completer = QCompleter(list_autocompletion)
