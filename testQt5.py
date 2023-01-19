@@ -153,8 +153,25 @@ class fenetre(QMainWindow):
             fichier_langue_avant="HPO_FR.txt" #avant de cliquer sur le bouton, c'était en français
             fichier_langue_apres="HPO_EN.txt" #l'utilisateur veut que ça soit en anglais mtn
             #fichierprint('EN')
+        
+        #Création de la liste des termes phen/HPO :
+        fichier_HPO = codecs.open(fichier_langue_apres, encoding='utf-8') #pour définir le fichier + accepter les accents avec 'utf-8'
+        liste_termes, trash = loadtxt(fichier_HPO, dtype=str, comments="$", delimiter="#", unpack=True)
+        
+        #Pour chaque élément de la liste:
+        for index in range(self.listWidget.count()):
+            ligne = self.listWidget.item(index).text().split() #récupérer le texte et de manière coupé
+            #par ex, ça va donner : ['Anomalie', 'de', 'la', 'taille', 'corporelle', 'HP:0000002']
+            
+            # ligne[-1] : -1 pour avoir le dernier élément, se sera toujours le terme HPO
+            
+            matching = [s for s in liste_termes if ligne[-1] in s]
+            self.listWidget.item(index).setText(str(matching[0]))
+            #print(matching) #verification // celon le terme, parfois il y en a plusieurs, donc on mets l'index 1
 
-        #CONTINUER ICI
+
+
+        
 
 app=QApplication(sys.argv)
 widget=fenetre()
