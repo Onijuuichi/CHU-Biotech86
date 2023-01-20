@@ -55,6 +55,8 @@ class fenetre(QMainWindow):
             if deja_present==False:
                 QListWidgetItem(self.lineEdit.text(), self.listWidget)
 
+        self.lineEdit.setText("")
+
     @pyqtSlot()
     def on_deleteButton_clicked(self):
         listItems = self.listWidget.selectedItems() #Récupération des éléments sélectionnés
@@ -169,9 +171,6 @@ class fenetre(QMainWindow):
             self.listWidget.item(index).setText(str(matching[0]))
             #print(matching) #verification // celon le terme, parfois il y en a plusieurs, donc on mets l'index 1
 
-
-
-        
 
 app=QApplication(sys.argv)
 widget=fenetre()
