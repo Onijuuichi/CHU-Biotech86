@@ -18,6 +18,7 @@ class fenetre(QMainWindow):
 
         #Setting de la langue de l'application :
         self.on_francaisButton_clicked()
+        self.lineEdit.returnPressed.connect(self.addButton.click)
 
     @pyqtSlot()
     def on_addButton_clicked(self):
