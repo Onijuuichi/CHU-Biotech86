@@ -20,6 +20,8 @@ class fenetre(QMainWindow):
         self.on_francaisButton_clicked()
         self.lineEdit.returnPressed.connect(self.addButton.click)
 
+        self.label_warning.hide() #Cache le message d'erreur
+
     @pyqtSlot()
     def on_addButton_clicked(self):
         #Ajoute l'élément dans la liste (visible sur l'interface) :
@@ -36,6 +38,9 @@ class fenetre(QMainWindow):
             #Si l'élement n'est pas déjà présent, alors ajout :
             if deja_present==False:
                 QListWidgetItem(self.lineEdit.text(), self.listWidget)
+                self.label_warning.hide() #Cache le message d'erreur 
+            else:
+                self.label_warning.show() #Affiche le message d'erreur 
 
         self.lineEdit.setText("")
 
@@ -75,6 +80,8 @@ class fenetre(QMainWindow):
         self.tabWidget.setTabText(1,'Help')
         self.tabWidget.setTabText(2,'Language')
 
+        self.label_warning.setText('ERROR : the selected term is already in the list')
+
         self.set_autocompleter('EN')
         self.reset_list_language('EN')
 
@@ -87,12 +94,14 @@ class fenetre(QMainWindow):
         self.label_2.setText('Liste des phénotypes du patient')
 
         self.addButton.setText('✓ Ajouter')
-        self.deleteButton.setText('✗ Supprimer les élément(s) sélectionné(s)')
+        self.deleteButton.setText('✗ Supprimer l\'élément sélectionné')
         self.exportButton.setText('Enregistrer ❯❯')
 
         self.tabWidget.setTabText(0,'Saisie phenotype')
         self.tabWidget.setTabText(1,'Aide')
         self.tabWidget.setTabText(2,'Langue')
+
+        self.label_warning.setText('ERREUR : le terme choisi est déjà dans la liste')
 
         self.set_autocompleter('FR')
         self.reset_list_language('FR')
