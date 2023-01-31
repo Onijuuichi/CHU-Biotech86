@@ -22,7 +22,7 @@
       </property>
       <widget class="QWidget" name="tab_phenotype">
        <attribute name="title">
-        <string>Saisie phenotype</string>
+        <string>Saisie phénotypes</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_2">
         <item row="1" column="0" colspan="2">
@@ -263,7 +263,7 @@ QPushButton:pressed{
          </rect>
         </property>
         <property name="text">
-         <string>Veuillez choisir la langue pour l'application :</string>
+         <string>Veuillez choisir la langue de l'application :</string>
         </property>
        </widget>
        <widget class="QPushButton" name="francaisButton">

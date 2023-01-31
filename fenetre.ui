@@ -87,7 +87,7 @@ QPushButton:pressed{
       </font>
      </property>
      <property name="text">
-      <string>Liste des phénotypes du patient</string>
+      <string>Liste des phénotypes du patient :</string>
      </property>
     </widget>
    </item>
@@ -203,7 +203,7 @@ QPushButton:pressed{
       </font>
      </property>
      <property name="text">
-      <string>Veuillez-saisir un phénotype :</string>
+      <string>Veuillez saisir un phénotype :</string>
      </property>
     </widget>
    </item>
