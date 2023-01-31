@@ -98,7 +98,7 @@ class Interface():
         self.titre = StringVar()
 
         #Create my label
-        self.labelPhen = Label(self.fenetre, text = "Entrer un charactère phenotypique", font=('arial',9,'bold'))
+        self.labelPhen = Label(self.fenetre, text = "Entrez un charactère phénotypique :", font=('arial',9,'bold'))
         self.labelPhen.grid(row = 0, column = 0, padx=20, pady=15, sticky=W)
         self.entryPhen = Entry(self.fenetre, bg='white', textvariable=self.titre)
         self.entryPhen.grid(row = 1, column = 0, padx=15, sticky=W)
@@ -117,7 +117,7 @@ class Interface():
         #if my button was on
         if self.is_on:
             self.on_button.config(image = self.off)
-            self.labelPhen.config(text = "Enter a phenotypic characteristic")
+            self.labelPhen.config(text = "Enter a phenotypic characteristic:")
             self.labelPhen.grid(row = 0, column = 0, padx=20, pady=15, sticky=W)
 
             self.buttonEnter.config(text = "Enter")
@@ -132,7 +132,7 @@ class Interface():
         #if my button was off
         else:
             self.on_button.config(image = self.on)
-            self.labelPhen.config(text = "Entrer un caractère phénotypique")
+            self.labelPhen.config(text = "Entrer un caractère phénotypique :")
             self.labelPhen.grid(row = 0, column = 0, padx=20, pady=15, sticky=W)
 
             self.buttonEnter.config(text = "Entrer")
