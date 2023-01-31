@@ -105,7 +105,7 @@ QPushButton:pressed{
            </font>
           </property>
           <property name="text">
-           <string>Veuillez-saisir un phénotype :</string>
+           <string>Veuillez saisir un phénotype :</string>
           </property>
          </widget>
         </item>
@@ -118,7 +118,7 @@ QPushButton:pressed{
            </font>
           </property>
           <property name="text">
-           <string>Liste des phénotypes du patient</string>
+           <string>Liste des phénotypes du patient :</string>
           </property>
          </widget>
         </item>
@@ -263,7 +263,7 @@ QPushButton:pressed{
          </rect>
         </property>
         <property name="text">
-         <string>Veuillez saisir la langue pour l'application :</string>
+         <string>Veuillez choisir la langue pour l'application :</string>
         </property>
        </widget>
        <widget class="QPushButton" name="francaisButton">
