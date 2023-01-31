@@ -9,12 +9,12 @@ import codecs
 
 class fenetre(QMainWindow):
     def __init__(self):
-        #Création et paramétrage de la fenêtre :
+        #Creation and settings of the screen:
         super(fenetre, self).__init__()
         loadUi('fenetre_avec_menu.ui',self)
         self.setWindowTitle('Phen2HPO')
-        self.setMinimumSize(800, 500) #pour la taille minimum de la fenetre / @param : self.setMinimumSize(width, height)
-        #self.setFixedSize(self.size()); #pour ne pas pouvoir redimensionner la fenetre
+        self.setMinimumSize(800, 500) #for the minimum size of the screen / @param : self.setMinimumSize(width, height)
+        #self.setFixedSize(self.size()); #to not be able to resize the screen
 
         #Setting de la langue de l'application :
         self.on_francaisButton_clicked()
@@ -88,7 +88,7 @@ class fenetre(QMainWindow):
     @pyqtSlot()
     def on_francaisButton_clicked(self):
         #Traduction de l'ensemble des éléments :
-        self.label_langue.setText('Veuillez choisir la langue pour l\'application')
+        self.label_langue.setText('Veuillez choisir la langue de l\'application :')
         self.label_aide.setText('Phen2HPO permet aux généticiens cliniciens de saisir les caractéristiques phénotypiques de leurs patients dans le but d\'obtenir une liste avec les caractéristiques HPO (Human Phenotype Ontology) correspondantes. \n Dans l\'interface Phen2HPO, vous pouvez : \n Choisir la langue grâce à la rubrique "Langue" située dans la barre de menu (Anglais ou Français au choix).\n Saisir un ou plusieurs phénotypes grâce à la rubrique "Saisie phénotype" située dans ma barre de menu : dans le champ "Veuillez saisir un phénotype", vous pouvez saisir un phénotype. Une fois le phénotype ajoutée, vous pouvez le voir s\'afficher dans le champ "Liste des phénotypes du patient". Également, il est possible pour vous d\'effacer un phénotype en le sélectionnant et en cliquant sur le bouton "Supprimer l\'élément sélectionné" ou enregistrer cette liste aux formats .txt et .csv grâce au boutton "Enregistrer". \n Vous pouvez retrouver des informations plus détaillées dans le manuel utilisateur fourni.')
         self.label_1.setText('Veuillez saisir un phénotype :')
         self.label_2.setText('Liste des phénotypes du patient :')
