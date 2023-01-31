@@ -69,8 +69,8 @@ class fenetre(QMainWindow):
         #Traduction de l'ensemble des éléments :
         self.label_langue.setText('Please choose a language:')
         self.label_aide.setText('Phen2HPO allows clinical geneticists to enter the phenotypic characteristics of their patients in order to obtain a list with the corresponding HPO (Human Phenotype Ontology) characteristics. \n In the Phen2HPO interface, you can: \n Choose the language thanks to the heading "Language" located in the menu bar (English or French at your choice).\n Enter one or more phenotypes thanks to the heading "Phenotype entry" located in my menu bar: in the field "Please select a phenotype", you can enter a phenotype. Once the phenotype is added, you can see it displayed in the field "Patients phenotype list". Also, it is possible for you to delete a phenotype by selecting it and clicking on the "Delete the selected element" button or save this list in .txt and .csv format with "Export". \More detailed information can be found in the user manual provided.')
-        self.label_1.setText('Please select a phenotype')
-        self.label_2.setText('Patients phenotype list')
+        self.label_1.setText('Please select a phenotype:')
+        self.label_2.setText('Patients phenotype list:')
 
         self.addButton.setText('✓ Add')
         self.deleteButton.setText('✗ Delete the selected element')
