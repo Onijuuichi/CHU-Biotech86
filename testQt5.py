@@ -67,7 +67,7 @@ class fenetre(QMainWindow):
     @pyqtSlot()
     def on_englishButton_clicked(self):
         #Traduction de l'ensemble des éléments :
-        self.label_langue.setText('Please select a language :')
+        self.label_langue.setText('Please choose a language:')
         self.label_aide.setText('Phen2HPO allows clinical geneticists to enter the phenotypic characteristics of their patients in order to obtain a list with the corresponding HPO (Human Phenotype Ontology) characteristics. \n In the Phen2HPO interface, you can: \n Choose the language thanks to the heading "Language" located in the menu bar (English or French at your choice).\n Enter one or more phenotypes thanks to the heading "Phenotype entry" located in my menu bar: in the field "Please select a phenotype", you can enter a phenotype. Once the phenotype is added, you can see it displayed in the field "Patients phenotype list". Also, it is possible for you to delete a phenotype by selecting it and clicking on the "Delete the selected element" button or save this list in .txt and .csv format with "Export". \More detailed information can be found in the user manual provided.')
         self.label_1.setText('Please select a phenotype')
         self.label_2.setText('Patients phenotype list')
@@ -80,7 +80,7 @@ class fenetre(QMainWindow):
         self.tabWidget.setTabText(1,'Help')
         self.tabWidget.setTabText(2,'Language')
 
-        self.label_warning.setText('ERROR : the selected term is already in the list')
+        self.label_warning.setText('ERROR: the selected term is already in the list.')
 
         self.set_autocompleter('EN')
         self.reset_list_language('EN')
@@ -88,10 +88,10 @@ class fenetre(QMainWindow):
     @pyqtSlot()
     def on_francaisButton_clicked(self):
         #Traduction de l'ensemble des éléments :
-        self.label_langue.setText('Veuillez saisir la langue pour l\'application :')
+        self.label_langue.setText('Veuillez choisir la langue pour l\'application :')
         self.label_aide.setText('Phen2HPO permet aux généticiens cliniciens de saisir les caractéristiques phénotypiques de leurs patients dans le but d\'obtenir une liste avec les caractéristiques HPO (Human Phenotype Ontology) correspondantes. \n Dans l\'interface Phen2HPO, vous pouvez : \n Choisir la langue grâce à la rubrique "Langue" située dans la barre de menu (Anglais ou Français au choix).\n Saisir un ou plusieurs phénotypes grâce à la rubrique "Saisie phénotype" située dans ma barre de menu : dans le champ "Veuillez saisir un phénotype", vous pouvez saisir un phénotype. Une fois le phénotype ajoutée, vous pouvez le voir s\'afficher dans le champ "Liste des phénotypes du patient". Également, il est possible pour vous d\'effacer un phénotype en le sélectionnant et en cliquant sur le bouton "Supprimer l\'élément sélectionné" ou enregistrer cette liste aux formats .txt et .csv grâce au boutton "Enregistrer". \n Vous pouvez retrouver des informations plus détaillées dans le manuel utilisateur fourni.')
         self.label_1.setText('Veuillez-saisir un phénotype :')
-        self.label_2.setText('Liste des phénotypes du patient')
+        self.label_2.setText('Liste des phénotypes du patient :')
 
         self.addButton.setText('✓ Ajouter')
         self.deleteButton.setText('✗ Supprimer l\'élément sélectionné')
@@ -101,7 +101,7 @@ class fenetre(QMainWindow):
         self.tabWidget.setTabText(1,'Aide')
         self.tabWidget.setTabText(2,'Langue')
 
-        self.label_warning.setText('ERREUR : le terme choisi est déjà dans la liste')
+        self.label_warning.setText('ERREUR : le terme choisi est déjà dans la liste.')
 
         self.set_autocompleter('FR')
         self.reset_list_language('FR')
