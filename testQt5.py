@@ -6,7 +6,7 @@ from PyQt5.QtWidgets import QApplication, QListWidgetItem, QCompleter, QWidget, 
 from PyQt5.uic import loadUi
 from numpy import loadtxt
 import codecs
- 
+  
 class fenetre(QMainWindow):
     def __init__(self):
         #Creation and settings of the screen:
