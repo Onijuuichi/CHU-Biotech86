@@ -16,57 +16,57 @@ class fenetre(QMainWindow):
         self.setMinimumSize(800, 500) #for the minimum size of the screen / @param : self.setMinimumSize(width, height)
         #self.setFixedSize(self.size()); #to not be able to resize the screen
 
-        #Setting de la langue de l'application :
+        #App language setting:
         self.on_francaisButton_clicked()
         self.lineEdit.returnPressed.connect(self.addButton.click)
 
-        self.label_warning.hide() #Cache le message d'erreur
+        self.label_warning.hide() #Hide error message
 
     @pyqtSlot()
     def on_addButton_clicked(self):
-        #Ajoute l'élément dans la liste (visible sur l'interface) :
+        #Add item in the list (visible on the interface):
         if self.lineEdit.text()!="":
             
-            deja_present=False #initialisation variable
+            deja_present=False #variable initialization
 
-            #Regarder dans tous les éléments de la liste :
+            #Search in all the items of the list:
             for index in range(self.listWidget.count()):
-                    #Pour vérifier si l'élément a déjà été ajouté
+                    #To check if the item has already been added
                     if self.lineEdit.text()==self.listWidget.item(index).text():
-                        deja_present=True #Alors on mets à True
+                        deja_present=True #So it is put on "true"
 
-            #Si l'élement n'est pas déjà présent, alors ajout :
+            #If the item is not already present, then add:
             if deja_present==False:
                 QListWidgetItem(self.lineEdit.text(), self.listWidget)
-                self.label_warning.hide() #Cache le message d'erreur 
+                self.label_warning.hide() #Hide error message 
             else:
-                self.label_warning.show() #Affiche le message d'erreur 
+                self.label_warning.show() #Display error message 
 
         self.lineEdit.setText("")
 
     @pyqtSlot()
     def on_deleteButton_clicked(self):
-        listItems = self.listWidget.selectedItems() #Récupération des éléments sélectionnés
+        listItems = self.listWidget.selectedItems() #Fetch selected items
 
-        #Suppression des éléments de la liste qui sont sélectionnés:
+        #Remove items of the list that are selected:
         if not listItems: return
         for item in listItems:
-            self.listWidget.takeItem(self.listWidget.row(item)) #suppression des items de la liste
+            self.listWidget.takeItem(self.listWidget.row(item)) #Remove items of the list
 
     @pyqtSlot()
     def on_exportButton_clicked(self):
-        #Création du fichier :
+        #File creation:
         file_name, _ = QFileDialog.getSaveFileName(self, 'Save File', os.getenv('HOME'),"Text files (*.txt)")
         if file_name != "":
             with open(file_name, 'w') as f:
-                #Pour chaque élément de la liste:
+                #For each item of the list:
                 for index in range(self.listWidget.count()):
-                    text = self.listWidget.item(index).text() #récupérer le texte
-                    f.write(text+"\n") #et l'ajouter dans le fichier
+                    text = self.listWidget.item(index).text() #Fetch text
+                    f.write(text+"\n") #And add it in the file
 
     @pyqtSlot()
     def on_englishButton_clicked(self):
-        #Traduction de l'ensemble des éléments :
+        #Translation of all elements: ENGLISH version
         self.label_langue.setText('Please choose a language:')
         self.label_aide.setText('Phen2HPO allows clinical geneticists to enter the phenotypic characteristics of their patients in order to obtain a list with the corresponding HPO (Human Phenotype Ontology) characteristics. \n In the Phen2HPO interface, you can: \n Choose the language thanks to the heading "Language" located in the menu bar (English or French at your choice).\n Enter one or more phenotypes thanks to the heading "Phenotype entry" located in my menu bar: in the field "Please select a phenotype", you can enter a phenotype. Once the phenotype is added, you can see it displayed in the field "Patients phenotype list". Also, it is possible for you to delete a phenotype by selecting it and clicking on the "Delete the selected element" button or save this list in .txt and .csv format with "Export". \More detailed information can be found in the user manual provided.')
         self.label_1.setText('Please select a phenotype:')
@@ -87,7 +87,7 @@ class fenetre(QMainWindow):
 
     @pyqtSlot()
     def on_francaisButton_clicked(self):
-        #Traduction de l'ensemble des éléments :
+        #Translation of all elements: FRENCH version
         self.label_langue.setText('Veuillez choisir la langue de l\'application :')
         self.label_aide.setText('Phen2HPO permet aux généticiens cliniciens de saisir les caractéristiques phénotypiques de leurs patients dans le but d\'obtenir une liste avec les caractéristiques HPO (Human Phenotype Ontology) correspondantes. \n Dans l\'interface Phen2HPO, vous pouvez : \n Choisir la langue grâce à la rubrique "Langue" située dans la barre de menu (Anglais ou Français au choix).\n Saisir un ou plusieurs phénotypes grâce à la rubrique "Saisie phénotype" située dans ma barre de menu : dans le champ "Veuillez saisir un phénotype", vous pouvez saisir un phénotype. Une fois le phénotype ajoutée, vous pouvez le voir s\'afficher dans le champ "Liste des phénotypes du patient". Également, il est possible pour vous d\'effacer un phénotype en le sélectionnant et en cliquant sur le bouton "Supprimer l\'élément sélectionné" ou enregistrer cette liste aux formats .txt et .csv grâce au boutton "Enregistrer". \n Vous pouvez retrouver des informations plus détaillées dans le manuel utilisateur fourni.')
         self.label_1.setText('Veuillez saisir un phénotype :')
@@ -108,15 +108,15 @@ class fenetre(QMainWindow):
 
     @pyqtSlot()
     def set_autocompleter(self, string):
-        #Verification quel langue choisie:
+        #Check wich language is chosen:
         if string=="FR":
-            nom_fichier="HPO_FR.txt" #Langue française choisie, utiliser le fichier avec les termes en français
-            #print('Fichier en FR utiliser pour le completer') #verification
+            nom_fichier="HPO_FR.txt" #French language chosen, use the file with French terms
+            #print('Fichier en FR utiliser pour le completer') #to check
         else:
-            nom_fichier="HPO_EN.txt" #Langue anglaise choisie, utiliser le fichier avec les termes en anglais
-            #print('Fichier en EN utiliser pour le completer') #verification
+            nom_fichier="HPO_EN.txt" #English language chosen, use the file with English terms
+            #print('Fichier en EN utiliser pour le completer') #to check
 
-        #================= POUR L'AUTO-COMPLETION =====================================================================#
+        #================= FOR THE AUTO-COMPLETION =====================================================================#
         #Création de la liste des mots qui seront suggérés à l'utilisateur :
         fichier_HPO = codecs.open(nom_fichier, encoding='utf-8') #pour définir le fichier + accepter les accents avec 'utf-8'
         list_autocompletion, trash = loadtxt(fichier_HPO, dtype=str, comments="$", delimiter="#", unpack=True)
