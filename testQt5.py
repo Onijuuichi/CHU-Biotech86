@@ -37,7 +37,7 @@ class fenetre(QMainWindow):
 
             #If the item is not already present, then add:
             if deja_present==False:
-                QListWidgetItem(self.lineEdit.text(), self.listWidget)
+                QListWidgetItem(self.lineEdit.text(), self.listWidget) #Add
                 self.label_warning.hide() #Hide error message 
             else:
                 self.label_warning.show() #Display error message 
