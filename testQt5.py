@@ -119,6 +119,7 @@ class fenetre(QMainWindow):
             #print('Fichier en EN utiliser pour le completer') #to check
 
         #================= FOR THE AUTO-COMPLETION =====================================================================#
+
         #Création de la liste des mots qui seront suggérés à l'utilisateur :
         fichier_HPO = codecs.open(nom_fichier, encoding='utf-8') #pour définir le fichier + accepter les accents avec 'utf-8'
         list_autocompletion, trash = loadtxt(fichier_HPO, dtype=str, comments="$", delimiter="#", unpack=True)
