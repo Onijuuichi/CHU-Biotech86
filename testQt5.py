@@ -1,8 +1,6 @@
 import os
 import sys
 import re
-#from fuzzywuzzy import fuzz
-#from fuzzywuzzy import process
 from fuzzysearch import find_near_matches
 from PyQt5.QtCore import pyqtSlot, QSize
 from PyQt5.QtCore import Qt
@@ -23,6 +21,8 @@ class fenetre(QMainWindow):
         #App language setting:
         self.on_francaisButton_clicked()
         self.lineEdit.returnPressed.connect(self.addButton.click)
+        
+        self.completer.activated.connect(self.handleCompletion)
 
         self.label_warning.hide() #Hide error message
 
@@ -178,47 +178,75 @@ class fenetre(QMainWindow):
     #https://stackoverflow.com/questions/74189826/how-to-achieve-autocomplete-on-a-substring-of-qlineedit-in-pyqt6 
     @pyqtSlot(str)
     def handleTextChanged(self, text):
+        #Avant tout, on vérifie si les deux derniers caractères sont des espaces
+        #Car ça bloque l'application s'ils ne sont pas gérés
+        if len(text) > 1:
+            if text[-1]==" " and text[-2]==" ":
+                text=text[:-1]
+                self.lineEdit.setText(text)
+        
+        #Gère si le premier caractère entré est un espace
+        if len(text) == 1 and text[0]==" ":
+            self.lineEdit.setText("")
+
+        #Booléen pour vérifier si l'élément à été trouvé
         found = False
-        prefix = text.rpartition(',')[-1]
 
-        if len(prefix) > 1:
-            self.completer.setCompletionPrefix(prefix)
-
+        if len(text) >= 1:
+            self.completer.setCompletionPrefix(text)
+            
             if self.completer.currentRow() >= 0:
                 found = True
+                
             else:
                 #If input not found, then signal [-1] retrieved
                 #It is probably a word with an error or unknown
                 
-                fichier="HPO_FR.txt" #before clicking on the button, it was in French
+                #On mets une longueur minimum de 2 caractères
+                #Car sinon la fonction "find_near_matches" beug
+                #par exemple: il y a un blocage si on "dz" par erreur
+                if len(text) > 2:
+                    fichier="HPO_FR.txt"
                     
-                fichier_HPO = codecs.open(fichier, encoding='utf-8') #define file and accept accents with 'utf-8'
-                liste_termes, trash = loadtxt(fichier_HPO, dtype=str, comments="$", delimiter="#", unpack=True)
-                liste_str='\n'.join(liste_termes)
+                    fichier_HPO = codecs.open(fichier, encoding='utf-8') #define file and accept accents with 'utf-8'
+                    liste_termes, trash = loadtxt(fichier_HPO, dtype=str, comments="$", delimiter="#", unpack=True)
+                    liste_str='\n'.join(liste_termes)
+                
+                    text = text.replace(" ", "_" )
+                    liste_str = liste_str.replace(" ", "_" )
 
-                text = text.replace(" ", "_" )
-                liste_str = liste_str.replace(" ", "_" )
-                #print(liste_str)
-        
-                #TO SHOW EVERYTHING: print(liste_str)
-                near_matches = find_near_matches(text, liste_str, max_l_dist=1)
+                    #TO SHOW EVERYTHING: print(liste_str)
+                    near_matches = find_near_matches(text, liste_str, max_l_dist=1)
+                
+                    #Si le dernier caractère entré est un espace (signalé par "_"), 
+                    #alors on corrige le mot dans l'input car sinon il n'y a plus de suggestions
+                    if(text[-1]=="_"):
+                        self.lineEdit.setText(near_matches[0].matched.replace("_", " " ))
                     
-                #If the list isn't empty, then there is a matching item
-                #à la saisie, il faut donc le proposer dans le 
-                if len(near_matches) != 0:
-                    near_matches[0].dist
-                    print(near_matches[0].matched)
+                    #If the list isn't empty, then there is a matching item
+                    #à la saisie, il faut donc le proposer dans le completer
+                    if len(near_matches) != 0:
+                        near_matches[0].dist
+                        print(near_matches[0].matched)
 
-                    self.completer.setCompletionPrefix(near_matches[0].matched.replace("_", " " ))
-                    #self.lineEdit.setText(near_matches[0].matched)
-
-                    if self.completer.currentRow() >= 0:
-                        found = True
-                        print("RETROUVER GRACE A MODIF")
-                        print(self.completer.currentCompletion())
+                        self.completer.setCompletionPrefix(near_matches[0].matched.replace("_", " " ))
+                        
+                        if self.completer.currentRow() >= 0:
+                            found = True
+                            print("RETROUVER GRACE A MODIF")
+                            print(self.completer.currentCompletion())
 
             if found:
                 self.completer.complete()
+            else:
+                self.completer.popup().hide()
+
+    #METHODE POUR GERER L'AUTOCOMPLETION
+    #Sans cette méthode, il n'y aura pas de d'autocomplétion lorsqu'on clique sur un élément du completer
+    @pyqtSlot(str)
+    def handleCompletion(self, text):
+        prefix = self.completer.completionPrefix()
+        self.lineEdit.setText(self.lineEdit.text()[:-len(prefix)] + text)        
 
 app=QApplication(sys.argv)
 widget=fenetre()
