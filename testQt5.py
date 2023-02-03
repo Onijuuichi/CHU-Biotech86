@@ -176,6 +176,7 @@ class fenetre(QMainWindow):
     #Method based on the following websites:
     #https://stackoverflow.com/questions/16158715/globbing-input-with-qcompleter
     #https://stackoverflow.com/questions/74189826/how-to-achieve-autocomplete-on-a-substring-of-qlineedit-in-pyqt6 
+    #https://stackoverflow.com/questions/11401367/pyqt-lineedit-with-readline-completer 
     @pyqtSlot(str)
     def handleTextChanged(self, text):
         #Avant tout, on vérifie si les deux derniers caractères sont des espaces
@@ -227,14 +228,18 @@ class fenetre(QMainWindow):
                     #à la saisie, il faut donc le proposer dans le completer
                     if len(near_matches) != 0:
                         near_matches[0].dist
-                        print(near_matches[0].matched)
+                        #print(near_matches[0].matched)
 
                         self.completer.setCompletionPrefix(near_matches[0].matched.replace("_", " " ))
                         
                         if self.completer.currentRow() >= 0:
                             found = True
-                            print("RETROUVER GRACE A MODIF")
-                            print(self.completer.currentCompletion())
+                            #print("RETROUVER GRACE A MODIF")
+                            #print(self.completer.currentCompletion())
+                    else:
+                        #Si la liste est vide, alors pas de ressemblance trouvé
+                        #Cependant peut être qu'il 
+                        print("Pas trouvé au final")
 
             if found:
                 self.completer.complete()
@@ -246,7 +251,7 @@ class fenetre(QMainWindow):
     @pyqtSlot(str)
     def handleCompletion(self, text):
         prefix = self.completer.completionPrefix()
-        self.lineEdit.setText(self.lineEdit.text()[:-len(prefix)] + text)        
+        self.lineEdit.setText(self.lineEdit.text()[:-len(prefix)] + text)  
 
 app=QApplication(sys.argv)
 widget=fenetre()
