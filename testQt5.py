@@ -123,57 +123,57 @@ class fenetre(QMainWindow):
             #print('Fichier en EN utiliser pour le completer') #to check
 
         #================= FOR THE AUTO-COMPLETION =====================================================================#
-        #Création de la liste des mots qui seront suggérés à l'utilisateur :
-        fichier_HPO = codecs.open(nom_fichier, encoding='utf-8') #pour définir le fichier + accepter les accents avec 'utf-8'
+        #Create terms list that will be suggested to the user:
+        fichier_HPO = codecs.open(nom_fichier, encoding='utf-8') #define file and accept accents with 'utf-8'
         list_autocompletion, trash = loadtxt(fichier_HPO, dtype=str, comments="$", delimiter="#", unpack=True)
         
-        #Création du 'completer' associé à la liste des mots/suggestions:
+        #Create the 'completer' linked to the suggestions terms list:
         self.completer = QCompleter(list_autocompletion)
-        #Initialisation du mode de filtrage pour les suggestions
-        #Ici 'MatchContains' permets de suggérer toutes les lignes contenant la saisie, peut importe sa position dans la ligne
-        #Par exemple, si on saisie "sco" en FR, cela va nous retourner "Scotome", "Scoliose", "Faible score APGAR", ...
+        #Initialization of the filter mode for suggestions
+        #Here 'MatchContains' allows to suggest all the lines containing the output, regardless of its position in the line
+        #For example, if we enter "sco" in FR, it will return "Scotome", "Scoliose", "Faible score APGAR", ...
         self.completer.setFilterMode(Qt.MatchFlag.MatchContains)
 
-        #Et faire en sorte qu'il n'y ait pas de soucis avec les majuscules/minuscules
-        #Par exemple, si on saisie "sco" en FR, cela peut quand même retourner le terme "Scoliose" (qui commence par une majuscule)
+        #No difference between upper and lower case
+        #For example, if we enter "sco" in FR, this can still return the term "Scoliosis" (which starts with a capital letter)
         self.completer.setCaseSensitivity(Qt.CaseInsensitive)
 
         self.completer.setWidget(self.lineEdit)
         self.lineEdit.textChanged.connect(self.handleTextChanged)
         self.completer.activated.connect(self.handleTextChanged)
         #self._completing = False
-        #Ajout du completer à notre input pour la saisie "lineEdit"
+        #Add the completer to our input for the "lineEdit" entry
         #self.lineEdit.setCompleter(self.completer)
                             
     @pyqtSlot()
     def reset_list_language(self, string):
-        #Verification de la langue choisie, pour mettre les bons termes:
+        #Verify the language chosen, to set up the good terms:
         if string=="FR":
-            fichier_langue_avant="HPO_EN.txt" #avant de cliquer sur le bouton, c'était en anglais
-            fichier_langue_apres="HPO_FR.txt" #l'utilisateur veut que ça soit en français mtn
+            fichier_langue_avant="HPO_EN.txt" #before clicking on the button, it was in English
+            fichier_langue_apres="HPO_FR.txt" #the user wants it in French from now on
             #fichierprint('FR')
 
         else:
-            fichier_langue_avant="HPO_FR.txt" #avant de cliquer sur le bouton, c'était en français
-            fichier_langue_apres="HPO_EN.txt" #l'utilisateur veut que ça soit en anglais mtn
+            fichier_langue_avant="HPO_FR.txt" #before clicking on the button, it was in French
+            fichier_langue_apres="HPO_EN.txt" #the user wants it in English from now on
             #fichierprint('EN')
         
-        #Création de la liste des termes phen/HPO :
-        fichier_HPO = codecs.open(fichier_langue_apres, encoding='utf-8') #pour définir le fichier + accepter les accents avec 'utf-8'
+        #Create phen/HPO terms list:
+        fichier_HPO = codecs.open(fichier_langue_apres, encoding='utf-8') #define file and accept accents with 'utf-8'
         liste_termes, trash = loadtxt(fichier_HPO, dtype=str, comments="$", delimiter="#", unpack=True)
         
-        #Pour chaque élément de la liste:
+        #For each term in the list:
         for index in range(self.listWidget.count()):
-            ligne = self.listWidget.item(index).text().split() #récupérer le texte et de manière coupé
-            #par ex, ça va donner : ['Anomalie', 'de', 'la', 'taille', 'corporelle', 'HP:0000002']
+            ligne = self.listWidget.item(index).text().split() #fetch the text splitted
+            #for example, we will have : ['Anomalie', 'de', 'la', 'taille', 'corporelle', 'HP:0000002']
             
-            # ligne[-1] : -1 pour avoir le dernier élément, se sera toujours le terme HPO
+            # ligne[-1] : -1 to have the last item, it will always be the term HPO
             
             matching = [s for s in liste_termes if ligne[-1] in s]
             self.listWidget.item(index).setText(str(matching[0]))
-            #print(matching) #verification // celon le terme, parfois il y en a plusieurs, donc on mets l'index 1
+            #print(matching) #verification // depending on the term, sometimes there are several, so we put the index 1
 
-    #Methode basé sur les articles suivants :
+    #Method based on the following websites:
     #https://stackoverflow.com/questions/16158715/globbing-input-with-qcompleter
     #https://stackoverflow.com/questions/74189826/how-to-achieve-autocomplete-on-a-substring-of-qlineedit-in-pyqt6 
     @pyqtSlot(str)
@@ -187,12 +187,12 @@ class fenetre(QMainWindow):
             if self.completer.currentRow() >= 0:
                 found = True
             else:
-                #Si input pas trouvé, alors signal [-1] récupéré
-                #Il s'agit donc probablement d'un mot avec erreur ou non reconnu
+                #If input not found, then signal [-1] retrieved
+                #It is probably a word with an error or unknown
                 
-                fichier="HPO_FR.txt" #avant de cliquer sur le bouton, c'était en français
+                fichier="HPO_FR.txt" #before clicking on the button, it was in French
                     
-                fichier_HPO = codecs.open(fichier, encoding='utf-8') #pour définir le fichier + accepter les accents avec 'utf-8'
+                fichier_HPO = codecs.open(fichier, encoding='utf-8') #define file and accept accents with 'utf-8'
                 liste_termes, trash = loadtxt(fichier_HPO, dtype=str, comments="$", delimiter="#", unpack=True)
                 liste_str='\n'.join(liste_termes)
 
@@ -200,10 +200,10 @@ class fenetre(QMainWindow):
                 liste_str = liste_str.replace(" ", "_" )
                 #print(liste_str)
         
-                #POUR AFFICHER TOUT : print(liste_str)
+                #TO SHOW EVERYTHING: print(liste_str)
                 near_matches = find_near_matches(text, liste_str, max_l_dist=1)
                     
-                #Si la liste n'est pas vide, alors il y a un élément ressemblant
+                #If the list isn't empty, then there is a matching item
                 #à la saisie, il faut donc le proposer dans le 
                 if len(near_matches) != 0:
                     near_matches[0].dist
