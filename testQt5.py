@@ -1,5 +1,9 @@
 import os
 import sys
+import re
+#from fuzzywuzzy import fuzz
+#from fuzzywuzzy import process
+from fuzzysearch import find_near_matches
 from PyQt5.QtCore import pyqtSlot, QSize
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QApplication, QListWidgetItem, QCompleter, QWidget, QFileDialog, QMainWindow
@@ -124,17 +128,22 @@ class fenetre(QMainWindow):
         list_autocompletion, trash = loadtxt(fichier_HPO, dtype=str, comments="$", delimiter="#", unpack=True)
         
         #Création du 'completer' associé à la liste des mots/suggestions:
-        completer = QCompleter(list_autocompletion)
+        self.completer = QCompleter(list_autocompletion)
         #Initialisation du mode de filtrage pour les suggestions
         #Ici 'MatchContains' permets de suggérer toutes les lignes contenant la saisie, peut importe sa position dans la ligne
         #Par exemple, si on saisie "sco" en FR, cela va nous retourner "Scotome", "Scoliose", "Faible score APGAR", ...
-        completer.setFilterMode(Qt.MatchContains)
+        self.completer.setFilterMode(Qt.MatchFlag.MatchContains)
+
         #Et faire en sorte qu'il n'y ait pas de soucis avec les majuscules/minuscules
         #Par exemple, si on saisie "sco" en FR, cela peut quand même retourner le terme "Scoliose" (qui commence par une majuscule)
-        completer.setCaseSensitivity(Qt.CaseInsensitive)
+        self.completer.setCaseSensitivity(Qt.CaseInsensitive)
 
+        self.completer.setWidget(self.lineEdit)
+        self.lineEdit.textChanged.connect(self.handleTextChanged)
+        self.completer.activated.connect(self.handleTextChanged)
+        #self._completing = False
         #Ajout du completer à notre input pour la saisie "lineEdit"
-        self.lineEdit.setCompleter(completer)
+        #self.lineEdit.setCompleter(self.completer)
                             
     @pyqtSlot()
     def reset_list_language(self, string):
@@ -164,6 +173,52 @@ class fenetre(QMainWindow):
             self.listWidget.item(index).setText(str(matching[0]))
             #print(matching) #verification // celon le terme, parfois il y en a plusieurs, donc on mets l'index 1
 
+    #Methode basé sur les articles suivants :
+    #https://stackoverflow.com/questions/16158715/globbing-input-with-qcompleter
+    #https://stackoverflow.com/questions/74189826/how-to-achieve-autocomplete-on-a-substring-of-qlineedit-in-pyqt6 
+    @pyqtSlot(str)
+    def handleTextChanged(self, text):
+        found = False
+        prefix = text.rpartition(',')[-1]
+
+        if len(prefix) > 1:
+            self.completer.setCompletionPrefix(prefix)
+
+            if self.completer.currentRow() >= 0:
+                found = True
+            else:
+                #Si input pas trouvé, alors signal [-1] récupéré
+                #Il s'agit donc probablement d'un mot avec erreur ou non reconnu
+                
+                fichier="HPO_FR.txt" #avant de cliquer sur le bouton, c'était en français
+                    
+                fichier_HPO = codecs.open(fichier, encoding='utf-8') #pour définir le fichier + accepter les accents avec 'utf-8'
+                liste_termes, trash = loadtxt(fichier_HPO, dtype=str, comments="$", delimiter="#", unpack=True)
+                liste_str='\n'.join(liste_termes)
+
+                text = text.replace(" ", "_" )
+                liste_str = liste_str.replace(" ", "_" )
+                #print(liste_str)
+        
+                #POUR AFFICHER TOUT : print(liste_str)
+                near_matches = find_near_matches(text, liste_str, max_l_dist=1)
+                    
+                #Si la liste n'est pas vide, alors il y a un élément ressemblant
+                #à la saisie, il faut donc le proposer dans le 
+                if len(near_matches) != 0:
+                    near_matches[0].dist
+                    print(near_matches[0].matched)
+
+                    self.completer.setCompletionPrefix(near_matches[0].matched.replace("_", " " ))
+                    #self.lineEdit.setText(near_matches[0].matched)
+
+                    if self.completer.currentRow() >= 0:
+                        found = True
+                        print("RETROUVER GRACE A MODIF")
+                        print(self.completer.currentCompletion())
+
+            if found:
+                self.completer.complete()
 
 app=QApplication(sys.argv)
 widget=fenetre()
