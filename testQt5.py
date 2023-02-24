@@ -82,35 +82,30 @@ class fenetre(QMainWindow):
     def on_exportButton_clicked(self):
         saved_items = [] #List to contains the items
 
-        #for index in range(self.listWidget.count()):
-        #    text = self.listWidget.item(index).text() #Fetch text
-        #    print(text)
-        #    splitted_text = re.split(r'\t+', text)
+        #For each element in the list viewed on the interface
+        for index in range(self.listWidget.count()):
+            text = self.listWidget.item(index).text() #Fetch an element in text format
+            splitted_text = re.split(r'\t+', text) #Split it by the tab separating the phenotype & the HPO term
             
-            #Check if the element is not already in the list based on the HPO term
+            #If this element is not already in the saved list (based on the HPO term - splitted_text[1])
             #Param : splitted_text[0] contains the phenotypic description, and splitted_text[1] the HPO term
-        #    if not any([word in splitted_text[1] for word in saved_items]):
-                #If here, meaning that the HPO term is already found in the list, no need to add it
-        #        print(text+" |||| UNIQUE!!!!")
-        #        saved_items += [text]
-        #    else:
-        #        print(text+" |||| DUPLICAT")
+            if not any([splitted_text[1] in word for word in saved_items]):
+                #Then it can be saved in the auxilary list
+                # + Editing the text line in order to have quotation marks (") before and after the phenotype
+                edited_text="\""+splitted_text[0]+"\"\t"+splitted_text[1]
+                saved_items += [edited_text]
             
-            #else: 
-            #    #If here, meaning that the item is not currently saved and is a new HPO term
-            #    print(splitted_text[0]+" |||| "+splitted_text[1]+" |||| UNIQUE!!!")
-            #    saved_items += [text]
-
-        #    print(saved_items)
+        #print(saved_items) just to check
                   
-        ##File creation:
+        #When all elements are retrieved, we can ask where to create the CVS file :
         file_name, _ = QFileDialog.getSaveFileName(self, 'Save File', os.getenv('HOME'),"Comma-separated file (*.csv)")
+        
+        #Then add the content of the saved list into the file :
         if file_name != "":
             with open(file_name, 'w') as f:
-                #For each item of the list:
-                for index in range(self.listWidget.count()):
-                    text = self.listWidget.item(index).text() #Fetch text
-                    f.write(text+"\n") #And add it in the file
+                #For each element in the saved list:
+                for element in saved_items:
+                    f.write(element+"\n") #Add it in the file
 
     @pyqtSlot()
     def on_englishButton_clicked(self):
@@ -294,7 +289,6 @@ class fenetre(QMainWindow):
                             #print(self.completer.currentCompletion())
                     #else:
                         #Si la liste est vide, alors pas de ressemblance trouvé
-                        #Cependant peut être qu'il 
                         #print("Pas trouvé au final")
 
             if found:
