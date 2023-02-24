@@ -1,13 +1,14 @@
 import os
 import sys
-import re
 from fuzzysearch import find_near_matches
-from PyQt5.QtCore import pyqtSlot, QSize
+from PyQt5.QtCore import pyqtSlot
 from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QApplication, QListWidgetItem, QCompleter, QWidget, QFileDialog, QMainWindow
+from PyQt5.QtWidgets import QApplication, QListWidgetItem, QCompleter, QFileDialog, QMainWindow
 from PyQt5.uic import loadUi
 from numpy import loadtxt
 import codecs
+import re
+#import pandas as pd #python -m pip install pandas
   
 class fenetre(QMainWindow):
     def __init__(self):
@@ -18,13 +19,15 @@ class fenetre(QMainWindow):
         self.setMinimumSize(800, 500) #for the minimum size of the screen / @param : self.setMinimumSize(width, height)
         #self.setFixedSize(self.size()); #to not be able to resize the screen
 
-        #App language setting:
-        self.on_francaisButton_clicked()
-        self.lineEdit.returnPressed.connect(self.addButton.click)
-        
-        self.completer.activated.connect(self.handleCompletion)
+        #App settings:
+        self.on_francaisButton_clicked() #Setting the default app language to FRENCH
+
+        self.lineEdit.returnPressed.connect(self.addButton.click) #When "Enter" key is pressed on input, it acts as if the addButton was clicked
+
+        self.completer.activated.connect(self.handleCompletion) #Set a custom completion handle
 
         self.label_warning.hide() #Hide error message
+
 
     @pyqtSlot()
     def on_addButton_clicked(self):
@@ -39,14 +42,32 @@ class fenetre(QMainWindow):
                     if self.lineEdit.text()==self.listWidget.item(index).text():
                         deja_present=True #So it is put on "true"
 
-            #If the item is not already present, then add:
+            #If the item is not already present in the saved list
             if deja_present==False:
-                QListWidgetItem(self.lineEdit.text(), self.listWidget)
-                self.label_warning.hide() #Hide error message 
+                #Then check if the item is correct HPO term : 
+                if self.lineEdit.text() in self.liste_termes:
+                    #It is a correct HPO term, so we can add it to the saved list
+                    QListWidgetItem(self.lineEdit.text(), self.listWidget)
+
+                    self.label_warning.hide() #Hide error message 
+                    self.lineEdit.setText("") #Clear the input
+
+                else:
+                    self.label_warning.show() #Display error message 
+                    
+                    #Show custom text depending on error (entry is incorrect)
+                    if self.language=="FR" :
+                        self.label_warning.setText("ERREUR : la saisie est incorrecte.")
+                    else:
+                        self.label_warning.setText("ERROR: the entry is incorrect.")
             else:
                 self.label_warning.show() #Display error message 
 
-        self.lineEdit.setText("")
+                #Show custom text depending on error (item already in the saved list)
+                if self.language=="FR" :
+                    self.label_warning.setText("ERREUR : le terme choisi est déjà dans la liste.")
+                else:
+                    self.label_warning.setText("ERROR: the selected term is already in the list.")
 
     @pyqtSlot()
     def on_deleteButton_clicked(self):
@@ -59,8 +80,31 @@ class fenetre(QMainWindow):
 
     @pyqtSlot()
     def on_exportButton_clicked(self):
-        #File creation:
-        file_name, _ = QFileDialog.getSaveFileName(self, 'Save File', os.getenv('HOME'),"Text files (*.txt)")
+        saved_items = [] #List to contains the items
+
+        #for index in range(self.listWidget.count()):
+        #    text = self.listWidget.item(index).text() #Fetch text
+        #    print(text)
+        #    splitted_text = re.split(r'\t+', text)
+            
+            #Check if the element is not already in the list based on the HPO term
+            #Param : splitted_text[0] contains the phenotypic description, and splitted_text[1] the HPO term
+        #    if not any([word in splitted_text[1] for word in saved_items]):
+                #If here, meaning that the HPO term is already found in the list, no need to add it
+        #        print(text+" |||| UNIQUE!!!!")
+        #        saved_items += [text]
+        #    else:
+        #        print(text+" |||| DUPLICAT")
+            
+            #else: 
+            #    #If here, meaning that the item is not currently saved and is a new HPO term
+            #    print(splitted_text[0]+" |||| "+splitted_text[1]+" |||| UNIQUE!!!")
+            #    saved_items += [text]
+
+        #    print(saved_items)
+                  
+        ##File creation:
+        file_name, _ = QFileDialog.getSaveFileName(self, 'Save File', os.getenv('HOME'),"Comma-separated file (*.csv)")
         if file_name != "":
             with open(file_name, 'w') as f:
                 #For each item of the list:
@@ -70,6 +114,9 @@ class fenetre(QMainWindow):
 
     @pyqtSlot()
     def on_englishButton_clicked(self):
+        #Changing the interface language to FRENCH
+        self.language = "EN"
+        
         #Translation of all elements: ENGLISH version
         self.label_langue.setText('Please choose a language:')
         self.label_aide.setText('Phen2HPO allows clinical geneticists to enter the phenotypic characteristics of their patients in order to obtain a list with the corresponding HPO (Human Phenotype Ontology) characteristics. \n In the Phen2HPO interface, you can: \n Choose the language thanks to the heading "Language" located in the menu bar (English or French at your choice).\n Enter one or more phenotypes thanks to the heading "Phenotype entry" located in my menu bar: in the field "Please select a phenotype", you can enter a phenotype. Once the phenotype is added, you can see it displayed in the field "Patients phenotype list". Also, it is possible for you to delete a phenotype by selecting it and clicking on the "Delete the selected element" button or save this list in .txt and .csv format with "Export". \More detailed information can be found in the user manual provided.')
@@ -85,13 +132,16 @@ class fenetre(QMainWindow):
         self.tabWidget.setTabText(1,'Help')
         self.tabWidget.setTabText(2,'Language')
 
-        self.label_warning.setText('ERROR: the selected term is already in the list.')
+        self.label_warning.setText('')
 
-        self.set_autocompleter('EN')
-        self.reset_list_language('EN')
+        self.set_autocompleter(self.language)
+        self.reset_list_language(self.language)
 
     @pyqtSlot()
     def on_francaisButton_clicked(self):
+        #Changing the interface language to FRENCH
+        self.language = "FR"
+
         #Translation of all elements: FRENCH version
         self.label_langue.setText('Veuillez choisir la langue de l\'application :')
         self.label_aide.setText('Phen2HPO permet aux généticiens cliniciens de saisir les caractéristiques phénotypiques de leurs patients dans le but d\'obtenir une liste avec les caractéristiques HPO (Human Phenotype Ontology) correspondantes. \n Dans l\'interface Phen2HPO, vous pouvez : \n Choisir la langue grâce à la rubrique "Langue" située dans la barre de menu (Anglais ou Français au choix).\n Saisir un ou plusieurs phénotypes grâce à la rubrique "Saisie phénotype" située dans ma barre de menu : dans le champ "Veuillez saisir un phénotype", vous pouvez saisir un phénotype. Une fois le phénotype ajoutée, vous pouvez le voir s\'afficher dans le champ "Liste des phénotypes du patient". Également, il est possible pour vous d\'effacer un phénotype en le sélectionnant et en cliquant sur le bouton "Supprimer l\'élément sélectionné" ou enregistrer cette liste aux formats .txt et .csv grâce au boutton "Enregistrer". \n Vous pouvez retrouver des informations plus détaillées dans le manuel utilisateur fourni.')
@@ -107,10 +157,10 @@ class fenetre(QMainWindow):
         self.tabWidget.setTabText(1,'Aide')
         self.tabWidget.setTabText(2,'Langue')
 
-        self.label_warning.setText('ERREUR : le terme choisi est déjà dans la liste.')
+        self.label_warning.setText('')
 
-        self.set_autocompleter('FR')
-        self.reset_list_language('FR')
+        self.set_autocompleter(self.language)
+        self.reset_list_language(self.language)
 
     @pyqtSlot()
     def set_autocompleter(self, string):
@@ -125,10 +175,10 @@ class fenetre(QMainWindow):
         #================= FOR THE AUTO-COMPLETION =====================================================================#
         #Create terms list that will be suggested to the user:
         fichier_HPO = codecs.open(nom_fichier, encoding='utf-8') #define file and accept accents with 'utf-8'
-        list_autocompletion, trash = loadtxt(fichier_HPO, dtype=str, comments="$", delimiter="#", unpack=True)
+        self.list_autocompletion, trash = loadtxt(fichier_HPO, dtype=str, comments="$", delimiter="#", unpack=True)
         
         #Create the 'completer' linked to the suggestions terms list:
-        self.completer = QCompleter(list_autocompletion)
+        self.completer = QCompleter(self.list_autocompletion)
         #Initialization of the filter mode for suggestions
         #Here 'MatchContains' allows to suggest all the lines containing the output, regardless of its position in the line
         #For example, if we enter "sco" in FR, it will return "Scotome", "Scoliose", "Faible score APGAR", ...
@@ -149,18 +199,20 @@ class fenetre(QMainWindow):
     def reset_list_language(self, string):
         #Verify the language chosen, to set up the good terms:
         if string=="FR":
-            fichier_langue_avant="HPO_EN.txt" #before clicking on the button, it was in English
-            fichier_langue_apres="HPO_FR.txt" #the user wants it in French from now on
+            #before clicking on the button, it was in English
+            #the user wants it in French from now on
+            fichier_langue_apres="HPO_FR.txt" 
             #fichierprint('FR')
 
         else:
-            fichier_langue_avant="HPO_FR.txt" #before clicking on the button, it was in French
-            fichier_langue_apres="HPO_EN.txt" #the user wants it in English from now on
+            #before clicking on the button, it was in French
+            #the user wants it in English from now on
+            fichier_langue_apres="HPO_EN.txt" 
             #fichierprint('EN')
         
         #Create phen/HPO terms list:
         fichier_HPO = codecs.open(fichier_langue_apres, encoding='utf-8') #define file and accept accents with 'utf-8'
-        liste_termes, trash = loadtxt(fichier_HPO, dtype=str, comments="$", delimiter="#", unpack=True)
+        self.liste_termes, trash = loadtxt(fichier_HPO, dtype=str, comments="$", delimiter="#", unpack=True)
         
         #For each term in the list:
         for index in range(self.listWidget.count()):
@@ -169,7 +221,7 @@ class fenetre(QMainWindow):
             
             # ligne[-1] : -1 to have the last item, it will always be the term HPO
             
-            matching = [s for s in liste_termes if ligne[-1] in s]
+            matching = [s for s in self.liste_termes if ligne[-1] in s]
             self.listWidget.item(index).setText(str(matching[0]))
             #print(matching) #verification // depending on the term, sometimes there are several, so we put the index 1
 
@@ -197,6 +249,7 @@ class fenetre(QMainWindow):
             self.completer.setCompletionPrefix(text)
             
             if self.completer.currentRow() >= 0:
+                #Then the prefix is found is one of the elements in the completer
                 found = True
                 
             else:
@@ -209,9 +262,11 @@ class fenetre(QMainWindow):
                 if len(text) > 2:
                     fichier="HPO_FR.txt"
                     
-                    fichier_HPO = codecs.open(fichier, encoding='utf-8') #define file and accept accents with 'utf-8'
-                    liste_termes, trash = loadtxt(fichier_HPO, dtype=str, comments="$", delimiter="#", unpack=True)
-                    liste_str='\n'.join(liste_termes)
+                    #fichier_HPO = codecs.open(fichier, encoding='utf-8') #define file and accept accents with 'utf-8'
+                    #liste_termes, trash = loadtxt(fichier_HPO, dtype=str, comments="$", delimiter="#", unpack=True)
+                    
+                    #We take the terms in the list :
+                    liste_str='\n'.join(self.liste_termes)
                 
                     text = text.replace(" ", "_" )
                     liste_str = liste_str.replace(" ", "_" )
@@ -222,7 +277,8 @@ class fenetre(QMainWindow):
                     #Si le dernier caractère entré est un espace (signalé par "_"), 
                     #alors on corrige le mot dans l'input car sinon il n'y a plus de suggestions
                     if(text[-1]=="_"):
-                        self.lineEdit.setText(near_matches[0].matched.replace("_", " " ))
+                        if len(near_matches) != 0:
+                            self.lineEdit.setText(near_matches[0].matched.replace("_", " " ))
                     
                     #If the list isn't empty, then there is a matching item
                     #à la saisie, il faut donc le proposer dans le completer
@@ -236,10 +292,10 @@ class fenetre(QMainWindow):
                             found = True
                             #print("RETROUVER GRACE A MODIF")
                             #print(self.completer.currentCompletion())
-                    else:
+                    #else:
                         #Si la liste est vide, alors pas de ressemblance trouvé
                         #Cependant peut être qu'il 
-                        print("Pas trouvé au final")
+                        #print("Pas trouvé au final")
 
             if found:
                 self.completer.complete()
