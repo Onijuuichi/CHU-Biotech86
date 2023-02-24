@@ -7,6 +7,8 @@ from PyQt5.QtWidgets import QApplication, QListWidgetItem, QCompleter, QFileDial
 from PyQt5.uic import loadUi
 from numpy import loadtxt
 import codecs
+import re
+#import pandas as pd #python -m pip install pandas
   
 class fenetre(QMainWindow):
     def __init__(self):
@@ -78,8 +80,31 @@ class fenetre(QMainWindow):
 
     @pyqtSlot()
     def on_exportButton_clicked(self):
-        #File creation:
-        file_name, _ = QFileDialog.getSaveFileName(self, 'Save File', os.getenv('HOME'),"Text files (*.txt)")
+        saved_items = [] #List to contains the items
+
+        #for index in range(self.listWidget.count()):
+        #    text = self.listWidget.item(index).text() #Fetch text
+        #    print(text)
+        #    splitted_text = re.split(r'\t+', text)
+            
+            #Check if the element is not already in the list based on the HPO term
+            #Param : splitted_text[0] contains the phenotypic description, and splitted_text[1] the HPO term
+        #    if not any([word in splitted_text[1] for word in saved_items]):
+                #If here, meaning that the HPO term is already found in the list, no need to add it
+        #        print(text+" |||| UNIQUE!!!!")
+        #        saved_items += [text]
+        #    else:
+        #        print(text+" |||| DUPLICAT")
+            
+            #else: 
+            #    #If here, meaning that the item is not currently saved and is a new HPO term
+            #    print(splitted_text[0]+" |||| "+splitted_text[1]+" |||| UNIQUE!!!")
+            #    saved_items += [text]
+
+        #    print(saved_items)
+                  
+        ##File creation:
+        file_name, _ = QFileDialog.getSaveFileName(self, 'Save File', os.getenv('HOME'),"Comma-separated file (*.csv)")
         if file_name != "":
             with open(file_name, 'w') as f:
                 #For each item of the list:
