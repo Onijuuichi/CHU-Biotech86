@@ -370,7 +370,7 @@ class fenetre(QMainWindow):
     @pyqtSlot(str)
     def handleCompletion(self, text):
         prefix = self.completer.completionPrefix()
-        self.lineEdit.setText(self.lineEdit.text()[:-len(prefix)] + text)  
+        self.lineEdit.setText(self.lineEdit.text()[:-len(prefix)] + text)
 
 app=QApplication(sys.argv)
 widget=fenetre()

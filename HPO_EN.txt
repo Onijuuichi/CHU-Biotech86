@@ -1,7 +1,7 @@
-1#von Graefe sign	HP:0025605#
-1#ureter, cancer of	HP:0100516#
-1#relative afferent pupillary defect	HP:0200057#
-1#'Onion bulb' formations	HP:0003383#
+0#von Graefe sign	HP:0025605#
+0#ureter, cancer of	HP:0100516#
+0#relative afferent pupillary defect	HP:0200057#
+0#'Onion bulb' formations	HP:0003383#
 0#von Willebrand Disease Type II Normandy	HP:0040237#
 0#vertebral endplate irregularity	HP:0003301#
 0#uterus absent	HP:0000151#
