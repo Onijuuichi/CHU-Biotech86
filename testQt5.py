@@ -313,6 +313,7 @@ class fenetre(QMainWindow):
             self.listWidget.item(index).setText(str(matching[0]))
             #print(matching) #Check
 
+
     #Method based on the following websites:
     #https://stackoverflow.com/questions/16158715/globbing-input-with-qcompleter
     #https://stackoverflow.com/questions/74189826/how-to-achieve-autocomplete-on-a-substring-of-qlineedit-in-pyqt6 
