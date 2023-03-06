@@ -5,6 +5,7 @@ from PyQt5.QtCore import pyqtSlot
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QApplication, QListWidgetItem, QCompleter, QFileDialog, QMainWindow
 from PyQt5.uic import loadUi
+from PyQt5.QtGui import QIcon
 from numpy import loadtxt
 import codecs
 import re
@@ -16,6 +17,7 @@ class fenetre(QMainWindow):
         super(fenetre, self).__init__()
         loadUi('fenetre_avec_menu.ui',self)
         self.setWindowTitle('Phen2HPO')
+        self.setWindowIcon(QIcon('icon_phen2HPO.png'))
         self.setMinimumSize(800, 500) #for the minimum size of the screen / @param : self.setMinimumSize(width, height)
         #self.setFixedSize(self.size()); #to not be able to resize the screen
 
@@ -79,53 +81,70 @@ class fenetre(QMainWindow):
 
     @pyqtSlot()
     def on_exportButton_clicked(self):
-        saved_items = [] #List to contains the items
-
-        #For each element in the list viewed on the interface
-        for index in range(self.listWidget.count()):
-            text = self.listWidget.item(index).text() #Fetch an element in text format
-            splitted_text = re.split(r'\t+', text) #Split it by the tab separating the phenotype & the HPO term
-            
-            #If this element is not already in the saved list (based on the HPO term - splitted_text[1])
-            #Param : splitted_text[0] contains the phenotypic description, and splitted_text[1] the HPO term
-            #print("splitted 0 : "+splitted_text[0]+" |||| splitted 1 : "+splitted_text[1]) #Check if it is working
-            if not any([splitted_text[1] in word for word in saved_items]):
-                #Then it can be saved in the auxilary list
-                # + Editing the text line in order to have quotation marks (") before and after the phenotype
-                edited_text="\""+splitted_text[0]+"\"\t"+splitted_text[1]
-                saved_items += [edited_text]
-            
-        #print(saved_items) #Check if the list items are correct
-                  
-        #When all elements are retrieved, we can ask where to create the CVS file :
-        file_name, _ = QFileDialog.getSaveFileName(self, 'Save File', os.getenv('HOME'),"Comma-separated file (*.csv)")
         
-        #Then add the content of the saved list into the file :
-        if file_name != "":
-            with open(file_name, 'w') as f:
-                #For each element in the saved list:
-                for element in saved_items:
-                    f.write(element+"\n") #Add it in the file
+        #Check if the lisy contains something : 
+        if self.listWidget.count() != 0 :
+            self.label_warning2.hide() #Hide error message 
+            
+            #For each element in the list viewed on the interface
+            for index in range(self.listWidget.count()):
 
-        #SAVING THE ELEMENTS AND UPDATING THEIR COUNTER
-        for element in saved_items:
-            #Also add one to the index of each element
-            line = element.replace("\"","")
-            #Get the index of the line where there is this element, in the initial list of terms
-            index_element = list(self.list_autocompletion).index(line)
-            #print(list(self.list_autocompletion).index(line)) #to check
-            self.list_autocompletion
+                text = self.listWidget.item(index).text() #Fetch an element in text format
+                splitted_text = re.split(r'\t+', text) #Split it by the tab separating the phenotype & the HPO term
+                
+                #If this element is not already in the saved list (based on the HPO term - splitted_text[1])
+                #Param : splitted_text[0] contains the phenotypic description, and splitted_text[1] the HPO term
+                #print("splitted 0 : "+splitted_text[0]+" |||| splitted 1 : "+splitted_text[1]) #Check if it is working
+                if not any([splitted_text[1] in word for word in saved_items]):
+                    #Then it can be saved in the auxilary list
+                    # + Editing the text line in order to have quotation marks (") before and after the phenotype
+                    edited_text="\""+splitted_text[0]+"\"\t"+splitted_text[1]
+                    saved_items += [edited_text]
+                
+            #print(saved_items) #Check if the list items are correct
+                    
+            #When all elements are retrieved, we can ask where to create the CVS file :
+            file_name, _ = QFileDialog.getSaveFileName(self, 'Save File', os.getenv('HOME'),"Comma-separated file (*.csv)")
+            
+            #Then add the content of the saved list into the file :
+            if file_name != "":
+                with open(file_name, 'w') as f:
+                    #For each element in the saved list:
+                    for element in saved_items:
+                        f.write(element+"\n") #Add it in the file
 
-            #Then update the specific file, based on the choosen language
-            #We didn't do both files, bc they are not the same number of lines
-            #Bc our method is based on the line index, we can't do both
-            if self.language == "FR":
-                self.update_file_content(index_element, "HPO_FR.txt")
+            #SAVING THE ELEMENTS AND UPDATING THEIR COUNTER
+            for element in saved_items:
+                #Also add one to the index of each element
+                line = element.replace("\"","")
+                #Get the index of the line where there is this element, in the initial list of terms
+                index_element = list(self.list_autocompletion).index(line)
+                #print(list(self.list_autocompletion).index(line)) #to check
+                self.list_autocompletion
+
+                #Then update the specific file, based on the choosen language
+                #We didn't do both files, bc they are not the same number of lines
+                #Bc our method is based on the line index, we can't do both
+                if self.language == "FR":
+                    self.update_file_content(index_element, "HPO_FR.txt")
+                else:
+                    self.update_file_content(index_element, "HPO_EN.txt")
+
+            #Then we refresh the completer based on the language of the app
+            self.set_autocompleter(self.language)
+        
+        else:
+            #If here : nothing is in the list, so we show an error message
+
+            self.label_warning2.show() #Display error message 
+
+            #Show custom text depending on error (item already in the saved list)
+            if self.language=="FR" :
+                self.label_warning2.setText("ERREUR : Vous ne pouvez pas exporter une liste vide.")
             else:
-                self.update_file_content(index_element, "HPO_EN.txt")
+                self.label_warning2.setText("ERROR: You cannot export an empty list.")
 
-        #Then we refresh the completer based on the language of the app
-        self.set_autocompleter(self.language)
+
 
     #@pyqtSlot()
     def update_file_content(self, index_element, file_name): 
@@ -189,8 +208,9 @@ class fenetre(QMainWindow):
         self.tabWidget.setTabText(1,'Help')
         self.tabWidget.setTabText(2,'Language')
 
-        self.label_warning.setText('')
-        self.lineEdit.setText('')
+        self.label_warning.setText('') #warning for the input
+        self.label_warning2.setText('') #warning for the listview
+        self.lineEdit.setText('') #set the input clear
 
         self.listWidget.clear() #Removes all the element in the list
         #We remove all the element in the list, bc there are not the same
@@ -221,8 +241,9 @@ class fenetre(QMainWindow):
         self.tabWidget.setTabText(1,'Aide')
         self.tabWidget.setTabText(2,'Langue')
 
-        self.label_warning.setText('')
-        self.lineEdit.setText('')
+        self.label_warning.setText('') #warning for the input
+        self.label_warning2.setText('') #warning for the listview
+        self.lineEdit.setText('') #set the input clear
 
         self.listWidget.clear() #Removes all the element in the list
         #Same explanation as in the on_englishButton_clicked(self) method
@@ -291,6 +312,7 @@ class fenetre(QMainWindow):
             matching = [s for s in self.liste_termes if ligne[-1] in s]
             self.listWidget.item(index).setText(str(matching[0]))
             #print(matching) #Check
+
 
     #Method based on the following websites:
     #https://stackoverflow.com/questions/16158715/globbing-input-with-qcompleter
