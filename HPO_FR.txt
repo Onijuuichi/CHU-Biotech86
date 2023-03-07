@@ -1,5 +1,4 @@
-0#Déficience intellectuelle	HP:0100543#
-0#Déficience sensorielle	HP:0003474#
+1#Érythropoïèse inefficace	HP:0010972#
 0#Œsophagite	HP:0100633#
 0#Œsophage de Barrett	HP:0100580#
 0#Œil rouge	HP:0025337#
@@ -109,7 +108,6 @@
 0#Érythème des paupières	HP:0040323#
 0#Érythème de l'héliotrope	HP:0040324#
 0#Érythème	HP:0010783#
-0#Érythropoïèse inefficace	HP:0010972#
 0#Érythropoïèse extramédullaire	HP:0001978#
 0#Érythropoïèse défectueuse	HP:0010972#
 0#Érythropoïèse dysplasique	HP:0012134#
@@ -16706,6 +16704,7 @@
 0#Déficience visuelle	HP:0000505#
 0#Déficience sensorielle distale des extrémités inférieures	HP:0002936#
 0#Déficience sensorielle distale	HP:0002936#
+0#Déficience sensorielle	HP:0003474#
 0#Déficience respiratoire	HP:0002093#
 0#Déficience motrice globale	HP:0007015#
 0#Déficience mentale modérée	HP:0002342#
@@ -16720,6 +16719,7 @@
 0#Déficience intellectuelle profonde	HP:0002187#
 0#Déficience intellectuelle non progressive	HP:0001249#
 0#Déficience intellectuelle légère	HP:0001256#
+0#Déficience intellectuelle	HP:0100543#
 0#Déficience intellectuelle	HP:0001249#
 0#Déficience focale du fémur proximal	HP:0030772#
 0#Déficience en phosphohexose isomérase	HP:0003568#

@@ -104,7 +104,7 @@ class fenetre(QMainWindow):
 
             #Demande à l'utilisateur s'il souhaite vider la liste après export
             if self.language=="FR":
-                question_export=QMessageBox.question(self, "Information", "Souhaitez vous vider la liste après export?", QMessageBox.Yes | QMessageBox.No)
+                question_export=QMessageBox.question(self, "Information", "Souhaitez-vous vider la liste après export ?", QMessageBox.Yes | QMessageBox.No)
             else:
                 self.language=="EN"
                 question_export=QMessageBox.question(self, "Information", "Would you like to clear the list after the export?", QMessageBox.Yes | QMessageBox.No)
@@ -204,7 +204,7 @@ class fenetre(QMainWindow):
     def on_englishButton_clicked(self):
         if self.listWidget.count() != 0 :
             msg= QMessageBox()
-            msg.setText("Attention, cette liste va être supprimée!\nBecarefull, the list will be emptied!")
+            msg.setText("Attention, cette liste va être vidée !\nBecarefull, the list will be emptied!")
             msg.exec()
         #Changing the interface language to FRENCH
         self.language = "EN"
@@ -241,7 +241,7 @@ class fenetre(QMainWindow):
     def on_francaisButton_clicked(self):
         if self.listWidget.count() != 0 :
             msg= QMessageBox()
-            msg.setText("Attention, cette liste va être supprimée!\nBecarefull, the list will be emptied!")
+            msg.setText("Attention, cette liste va être vidée !\nBecarefull, the list will be emptied!")
             msg.exec()
         #Changing the interface language to FRENCH
         self.language = "FR"
