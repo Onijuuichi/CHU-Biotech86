@@ -3,10 +3,8 @@
 0#relative afferent pupillary defect	HP:0200057#
 0#'Onion bulb' formations	HP:0003383#
 0#von Willebrand Disease Type II Normandy	HP:0040237#
-0#von Graefe sign	HP:0025605#
 0#vertebral endplate irregularity	HP:0003301#
 0#uterus absent	HP:0000151#
-0#ureter, cancer of	HP:0100516#
 0#ulnar hypoplasia/aplasia	HP:0006495#
 0#trident deformity	HP:0004060#
 0#trident abnormality	HP:0004060#
@@ -30,7 +28,6 @@
 0#respiratory infections, recurrent	HP:0002205#
 0#respiratory distress, episodic	HP:0004885#
 0#renal TCC	HP:0030409#
-0#relative afferent pupillary defect	HP:0200057#
 0#relative afferent pupil defect	HP:0200057#
 0#red brown urine	HP:0040320#
 0#pulmonary infections, recurrent	HP:0006532#
@@ -778,6 +775,7 @@
 0#Vitamin B6 deficiency	HP:0008326#
 0#Vitamin B5 deficiency	HP:0100505#
 0#Vitamin B3 deficiency	HP:0100497#
+0#Vitamin B2 deficiency	HP:0100504#
 0#Vitamin B12 deficiency caused by intestinal malabsorption	HP:0200118#
 0#Vitamin B12 deficiency	HP:0100502#
 0#Vitamin B1 deficiency	HP:0100503#
@@ -29260,6 +29258,5 @@
 0#'cigarette paper scarring'	HP:0001073#
 0#'Waddling' gait	HP:0002515#
 0#'Sea blue' histiocytes	HP:0001982#
-0#'Onion bulb' formations	HP:0003383#
 0#'Fingerprint profiles' ultrastructurally in cells	HP:0003208#
 0#'Curvilinear profiles' ultrastructurally in cells	HP:0003205#

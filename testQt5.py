@@ -3,7 +3,7 @@ import sys
 from fuzzysearch import find_near_matches
 from PyQt5.QtCore import pyqtSlot
 from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QApplication, QListWidgetItem, QCompleter, QFileDialog, QMainWindow
+from PyQt5.QtWidgets import QApplication, QListWidgetItem, QCompleter, QFileDialog, QMainWindow, QMessageBox
 from PyQt5.uic import loadUi
 from PyQt5.QtGui import QIcon
 from numpy import loadtxt
@@ -23,7 +23,6 @@ class fenetre(QMainWindow):
 
         #App settings:
         self.on_francaisButton_clicked() #Setting the default app language to FRENCH
-
         self.lineEdit.returnPressed.connect(self.addButton.click) #When "Enter" key is pressed on input, it acts as if the addButton was clicked
 
         self.completer.activated.connect(self.handleCompletion) #Set a custom completion handle
@@ -81,7 +80,7 @@ class fenetre(QMainWindow):
 
     @pyqtSlot()
     def on_exportButton_clicked(self):
-        
+        saved_items=[]
         #Check if the lisy contains something : 
         if self.listWidget.count() != 0 :
             self.label_warning2.hide() #Hide error message 
@@ -102,7 +101,14 @@ class fenetre(QMainWindow):
                     saved_items += [edited_text]
                 
             #print(saved_items) #Check if the list items are correct
-                    
+
+            #Demande à l'utilisateur s'il souhaite vider la liste après export
+            if self.language=="FR":
+                question_export=QMessageBox.question(self, "Information", "Souhaitez vous vider la liste après export?", QMessageBox.Yes | QMessageBox.No)
+            else:
+                self.language=="EN"
+                question_export=QMessageBox.question(self, "Information", "Would you like to clear the list after the export?", QMessageBox.Yes | QMessageBox.No)
+
             #When all elements are retrieved, we can ask where to create the CVS file :
             file_name, _ = QFileDialog.getSaveFileName(self, 'Save File', os.getenv('HOME'),"Comma-separated file (*.csv)")
             
@@ -132,7 +138,13 @@ class fenetre(QMainWindow):
 
             #Then we refresh the completer based on the language of the app
             self.set_autocompleter(self.language)
-        
+
+            #On vide la liste si la réponse est oui
+            if question_export == QMessageBox.Yes:
+                #print("Yes")
+                self.listWidget.clear()
+            
+
         else:
             #If here : nothing is in the list, so we show an error message
 
@@ -190,6 +202,10 @@ class fenetre(QMainWindow):
 
     @pyqtSlot()
     def on_englishButton_clicked(self):
+        if self.listWidget.count() != 0 :
+            msg= QMessageBox()
+            msg.setText("Attention, cette liste va être supprimée!\nBecarefull, the list will be emptied!")
+            msg.exec()
         #Changing the interface language to FRENCH
         self.language = "EN"
         
@@ -223,9 +239,12 @@ class fenetre(QMainWindow):
 
     @pyqtSlot()
     def on_francaisButton_clicked(self):
+        if self.listWidget.count() != 0 :
+            msg= QMessageBox()
+            msg.setText("Attention, cette liste va être supprimée!\nBecarefull, the list will be emptied!")
+            msg.exec()
         #Changing the interface language to FRENCH
         self.language = "FR"
-
         #Translation of all elements: FRENCH version
         self.label_langue.setText('Veuillez choisir la langue de l\'application :')
         self.label_aide.setText('Phen2HPO permet aux généticiens cliniciens de saisir les caractéristiques phénotypiques de leurs patients dans le but d\'obtenir une liste avec les caractéristiques HPO (Human Phenotype Ontology) correspondantes. \n Dans l\'interface Phen2HPO, vous pouvez : \n Choisir la langue grâce à la rubrique "Langue" située dans la barre de menu (Anglais ou Français au choix).\n Saisir un ou plusieurs phénotypes grâce à la rubrique "Saisie phénotype" située dans ma barre de menu : dans le champ "Veuillez saisir un phénotype", vous pouvez saisir un phénotype. Une fois le phénotype ajoutée, vous pouvez le voir s\'afficher dans le champ "Liste des phénotypes du patient". Également, il est possible pour vous d\'effacer un phénotype en le sélectionnant et en cliquant sur le bouton "Supprimer l\'élément sélectionné" ou enregistrer cette liste aux formats .txt et .csv grâce au boutton "Enregistrer". \n Vous pouvez retrouver des informations plus détaillées dans le manuel utilisateur fourni.')
@@ -397,4 +416,5 @@ class fenetre(QMainWindow):
 app=QApplication(sys.argv)
 widget=fenetre()
 widget.show()
+
 sys.exit(app.exec_())
