@@ -1,4 +1,4 @@
-1#Érythropoïèse inefficace	HP:0010972#
+0#Érythropoïèse inefficace	HP:0010972#
 0#Œsophagite	HP:0100633#
 0#Œsophage de Barrett	HP:0100580#
 0#Œil rouge	HP:0025337#
