@@ -1,8 +1,8 @@
-0#von Graefe sign	HP:0025605#
 0#ureter, cancer of	HP:0100516#
-0#relative afferent pupillary defect	HP:0200057#
-0#'Onion bulb' formations	HP:0003383#
+0#short stature, mild	HP:0003502#
+0#obsolete Vocal cord paralysis (caused by tumor impingement)	HP:0001606#
 0#von Willebrand Disease Type II Normandy	HP:0040237#
+0#von Graefe sign	HP:0025605#
 0#vertebral endplate irregularity	HP:0003301#
 0#uterus absent	HP:0000151#
 0#ulnar hypoplasia/aplasia	HP:0006495#
@@ -23,11 +23,11 @@
 0#situs transversus	HP:0001696#
 0#situs oppositus	HP:0001696#
 0#shortened long tubular bones	HP:0003026#
-0#short stature, mild	HP:0003502#
 0#scaly skin	HP:0040189#
 0#respiratory infections, recurrent	HP:0002205#
 0#respiratory distress, episodic	HP:0004885#
 0#renal TCC	HP:0030409#
+0#relative afferent pupillary defect	HP:0200057#
 0#relative afferent pupil defect	HP:0200057#
 0#red brown urine	HP:0040320#
 0#pulmonary infections, recurrent	HP:0006532#
@@ -45,7 +45,6 @@
 0#optic nerve abnormalities	HP:0000587#
 0#open cranial sutures	HP:0010537#
 0#obsolete Wide/broad phalanges of the ring finger	HP:0004198#
-0#obsolete Vocal cord paralysis (caused by tumor impingement)	HP:0001606#
 0#obsolete Ulnar deviation of the thumb	HP:0009621#
 0#obsolete Transposition of the great arteries with ventricular septal defect	HP:0011607#
 0#obsolete Transposition of the great arteries with intact ventricular septum	HP:0011606#
@@ -29258,5 +29257,6 @@
 0#'cigarette paper scarring'	HP:0001073#
 0#'Waddling' gait	HP:0002515#
 0#'Sea blue' histiocytes	HP:0001982#
+0#'Onion bulb' formations	HP:0003383#
 0#'Fingerprint profiles' ultrastructurally in cells	HP:0003208#
 0#'Curvilinear profiles' ultrastructurally in cells	HP:0003205#

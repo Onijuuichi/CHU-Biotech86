@@ -1,4 +1,6 @@
-0#Érythropoïèse inefficace	HP:0010972#
+0#Œdème pulmonaire	HP:0100598#
+0#Étroitesse des distances interpédiculaires dans les régions thoraciques inférieures	HP:0008470#
+0#Épisodes psychotiques transitoires	HP:0006932#
 0#Œsophagite	HP:0100633#
 0#Œsophage de Barrett	HP:0100580#
 0#Œil rouge	HP:0025337#
@@ -13,7 +15,6 @@
 0#Œdème périphérique des membres inférieurs	HP:0010741#
 0#Œdème périphérique	HP:0012398#
 0#Œdème périorbitaire	HP:0100539#
-0#Œdème pulmonaire	HP:0100598#
 0#Œdème plantaire	HP:0025537#
 0#Œdème papillaire	HP:0001085#
 0#Œdème palpébral	HP:0100540#
@@ -66,7 +67,6 @@
 0#Évasement de la cage thoracique inférieure	HP:0006589#
 0#Évanouissement	HP:0001279#
 0#Étroitesse des os de la mâchoire supérieure	HP:0002010#
-0#Étroitesse des distances interpédiculaires dans les régions thoraciques inférieures	HP:0008470#
 0#Étroitesse de la distance interpédiculaire thoracolombaire	HP:0008484#
 0#Étroitesse de l'interpédicule thoracolombaire	HP:0008484#
 0#Étroitesse de l'interpédicule thoracique inférieur	HP:0008470#
@@ -108,6 +108,7 @@
 0#Érythème des paupières	HP:0040323#
 0#Érythème de l'héliotrope	HP:0040324#
 0#Érythème	HP:0010783#
+0#Érythropoïèse inefficace	HP:0010972#
 0#Érythropoïèse extramédullaire	HP:0001978#
 0#Érythropoïèse défectueuse	HP:0010972#
 0#Érythropoïèse dysplasique	HP:0012134#
@@ -186,7 +187,6 @@
 0#Épisodes récurrents d'otite moyenne	HP:0000403#
 0#Épisodes récurrents d'impétigo	HP:0005406#
 0#Épisodes récurrents d'acidose	HP:0004911#
-0#Épisodes psychotiques transitoires	HP:0006932#
 0#Épisodes psychotiques	HP:0000725#
 0#Épisodes multiples d'otite moyenne	HP:0000403#
 0#Épisodes intermittents d'insuffisance respiratoire dus à une faiblesse musculaire	HP:0004889#
