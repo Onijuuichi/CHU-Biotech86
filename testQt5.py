@@ -102,7 +102,7 @@ class fenetre(QMainWindow):
                 
             #print(saved_items) #Check if the list items are correct
 
-            #Demande à l'utilisateur s'il souhaite vider la liste après export
+            #Ask to the user if he wants to empty the lsit after export
             if self.language=="FR":
                 question_export=QMessageBox.question(self, "Information", "Souhaitez vous vider la liste après export?", QMessageBox.Yes | QMessageBox.No)
             else:
@@ -139,7 +139,7 @@ class fenetre(QMainWindow):
             #Then we refresh the completer based on the language of the app
             self.set_autocompleter(self.language)
 
-            #On vide la liste si la réponse est oui
+            #If the answer is yes, we empty the list
             if question_export == QMessageBox.Yes:
                 #print("Yes")
                 self.listWidget.clear()
@@ -206,6 +206,7 @@ class fenetre(QMainWindow):
             msg= QMessageBox()
             msg.setText("Attention, cette liste va être supprimée!\nBecarefull, the list will be emptied!")
             msg.exec()
+        
         #Changing the interface language to FRENCH
         self.language = "EN"
         
@@ -339,18 +340,18 @@ class fenetre(QMainWindow):
     #https://stackoverflow.com/questions/11401367/pyqt-lineedit-with-readline-completer 
     @pyqtSlot(str)
     def handleTextChanged(self, text):
-        #Avant tout, on vérifie si les deux derniers caractères sont des espaces
-        #Car ça bloque l'application s'ils ne sont pas gérés
+        #First of all, we check if the last two characters are spaces
+        #Because it blocks the app if they are not managed
         if len(text) > 1:
             if text[-1]==" " and text[-2]==" ":
                 text=text[:-1]
                 self.lineEdit.setText(text)
         
-        #Gère si le premier caractère entré est un espace
+        #Manage if the first character entered is a space
         if len(text) == 1 and text[0]==" ":
             self.lineEdit.setText("")
 
-        #Booléen pour vérifier si l'élément à été trouvé
+        #Boolean to check if the element has been found
         found = False
 
         if len(text) >= 1:
@@ -364,9 +365,9 @@ class fenetre(QMainWindow):
                 #If input not found, then signal [-1] retrieved
                 #It is probably a word with an error or unknown
                 
-                #On mets une longueur minimum de 2 caractères
-                #Car sinon la fonction "find_near_matches" beug
-                #par exemple: il y a un blocage si on "dz" par erreur
+                #We put a minimum length of 2 characters
+                #Because otherwise the "find_near_matches" function will crash
+                #For example: there is a block if you "dz" by mistake
                 if len(text) > 2:
                     #fichier="HPO_FR.txt"
                     
@@ -379,14 +380,14 @@ class fenetre(QMainWindow):
                     #print(liste_str) #Check if the list is correct
                     near_matches = find_near_matches(text, liste_str, max_l_dist=1)
                 
-                    #Si le dernier caractère entré est un espace (signalé par "_"), 
-                    #alors on corrige le mot dans l'input car sinon il n'y a plus de suggestions
+                    #If the last character entered is a space (indicated by "_"), 
+                    #Then we correct the word in the input because otherwise there are no more suggestions
                     if(text[-1]=="_"):
                         if len(near_matches) != 0:
                             self.lineEdit.setText(near_matches[0].matched.replace("_", " " ))
                     
                     #If the list isn't empty, then there is a matching item
-                    #à la saisie, il faut donc le proposer dans le completer
+                    #to the input, it is therefore necessary to propose it in the completer
                     if len(near_matches) != 0:
                         near_matches[0].dist
                         #print(near_matches[0].matched)
@@ -395,19 +396,19 @@ class fenetre(QMainWindow):
                         
                         if self.completer.currentRow() >= 0:
                             found = True
-                            #print("RETROUVER GRACE A MODIF")
+                            #print("Found thx to the modif")
                             #print(self.completer.currentCompletion())
                     #else:
-                        #Si la liste est vide, alors pas de ressemblance trouvé
-                        #print("Pas trouvé au final")
+                        #If the list is empty, there is no match found
+                        #print("Finally not found")
 
             if found:
                 self.completer.complete()
             else:
                 self.completer.popup().hide() 
 
-    #METHODE POUR GERER L'AUTOCOMPLETION
-    #Sans cette méthode, il n'y aura pas de d'autocomplétion lorsqu'on clique sur un élément du completer
+    #METHOD TO MANAGE AUTOCOMPLETION
+    #Without this method, there will be no autocompletion when you click on an element of the completer
     @pyqtSlot(str)
     def handleCompletion(self, text):
         prefix = self.completer.completionPrefix()
