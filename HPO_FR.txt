@@ -1,57 +1,57 @@
-0#Œdème pulmonaire	HP:0100598#
+0#Oedème pulmonaire	HP:0100598#
 0#Étroitesse des distances interpédiculaires dans les régions thoraciques inférieures	HP:0008470#
 0#Épisodes psychotiques transitoires	HP:0006932#
-0#Œsophagite	HP:0100633#
-0#Œsophage de Barrett	HP:0100580#
-0#Œil rouge	HP:0025337#
-0#Œil protubérant	HP:0000520#
-0#Œil profondément enfoncé	HP:0000490#
-0#Œil enfoncé	HP:0000490#
-0#Œil de surfeur	HP:0001059#
-0#Œil de cyclope	HP:0009914#
-0#Œil central unique	HP:0009914#
-0#Œil bombé	HP:0000520#
-0#Œil au coucher du soleil	HP:0012470#
-0#Œdème périphérique des membres inférieurs	HP:0010741#
-0#Œdème périphérique	HP:0012398#
-0#Œdème périorbitaire	HP:0100539#
-0#Œdème plantaire	HP:0025537#
-0#Œdème papillaire	HP:0001085#
-0#Œdème palpébral	HP:0100540#
-0#Œdème palmaire	HP:0025538#
-0#Œdème palatin	HP:0031089#
-0#Œdème musculaire	HP:0100748#
-0#Œdème maculaire cystoïde	HP:0011505#
-0#Œdème maculaire	HP:0040049#
-0#Œdème laryngé	HP:0012027#
-0#Œdème intestinal	HP:0005225#
-0#Œdème hypoprotéinémique	HP:0007609#
-0#Œdème généralisé extrême	HP:0012050#
-0#Œdème généralisé des tissus	HP:0007430#
-0#Œdème généralisé	HP:0007430#
-0#Œdème génital	HP:0031188#
-0#Œdème facial	HP:0000282#
-0#Œdème du thalamus	HP:0025040#
-0#Œdème du stroma cornéen	HP:0012040#
-0#Œdème du pharynx	HP:0011855#
-0#Œdème du palais	HP:0031089#
-0#Œdème du limbe	HP:0025349#
-0#Œdème du dos des pieds	HP:0012098#
-0#Œdème du dos des mains et des pieds	HP:0007514#
-0#Œdème du dos des mains	HP:0007514#
-0#Œdème du cervelet	HP:0030915#
-0#Œdème des paupières	HP:0100540#
-0#Œdème des membres supérieurs	HP:0010742#
-0#Œdème des membres inférieurs	HP:0010741#
-0#Œdème des jambes	HP:0010741#
-0#Œdème des ganglions de la base	HP:0025039#
-0#Œdème de la paupière supérieure	HP:0012724#
-0#Œdème de la paupière inférieure	HP:0012568#
-0#Œdème de la langue	HP:0040315#
-0#Œdème de Quincke	HP:0100665#
-0#Œdème cérébral	HP:0002181#
-0#Œdème angioneurotique	HP:0100665#
-0#Œdème	HP:0000969#
+0#Oesophagite	HP:0100633#
+0#Oesophage de Barrett	HP:0100580#
+0#Oeil rouge	HP:0025337#
+0#Oeil protubérant	HP:0000520#
+0#Oeil profondément enfoncé	HP:0000490#
+0#Oeil enfoncé	HP:0000490#
+0#Oeil de surfeur	HP:0001059#
+0#Oeil de cyclope	HP:0009914#
+0#Oeil central unique	HP:0009914#
+0#Oeil bombé	HP:0000520#
+0#Oeil au coucher du soleil	HP:0012470#
+0#Oedème périphérique des membres inférieurs	HP:0010741#
+0#Oedème périphérique	HP:0012398#
+0#Oedème périorbitaire	HP:0100539#
+0#Oedème plantaire	HP:0025537#
+0#Oedème papillaire	HP:0001085#
+0#Oedème palpébral	HP:0100540#
+0#Oedème palmaire	HP:0025538#
+0#Oedème palatin	HP:0031089#
+0#Oedème musculaire	HP:0100748#
+0#Oedème maculaire cystoïde	HP:0011505#
+0#Oedème maculaire	HP:0040049#
+0#Oedème laryngé	HP:0012027#
+0#Oedème intestinal	HP:0005225#
+0#Oedème hypoprotéinémique	HP:0007609#
+0#Oedème généralisé extrême	HP:0012050#
+0#Oedème généralisé des tissus	HP:0007430#
+0#Oedème généralisé	HP:0007430#
+0#Oedème génital	HP:0031188#
+0#Oedème facial	HP:0000282#
+0#Oedème du thalamus	HP:0025040#
+0#Oedème du stroma cornéen	HP:0012040#
+0#Oedème du pharynx	HP:0011855#
+0#Oedème du palais	HP:0031089#
+0#Oedème du limbe	HP:0025349#
+0#Oedème du dos des pieds	HP:0012098#
+0#Oedème du dos des mains et des pieds	HP:0007514#
+0#Oedème du dos des mains	HP:0007514#
+0#Oedème du cervelet	HP:0030915#
+0#Oedème des paupières	HP:0100540#
+0#Oedème des membres supérieurs	HP:0010742#
+0#Oedème des membres inférieurs	HP:0010741#
+0#Oedème des jambes	HP:0010741#
+0#Oedème des ganglions de la base	HP:0025039#
+0#Oedème de la paupière supérieure	HP:0012724#
+0#Oedème de la paupière inférieure	HP:0012568#
+0#Oedème de la langue	HP:0040315#
+0#Oedème de Quincke	HP:0100665#
+0#Oedème cérébral	HP:0002181#
+0#Oedème angioneurotique	HP:0100665#
+0#Oedème	HP:0000969#
 0#Îlots d'os à l'intérieur des sutures crâniennes	HP:0002645#
 0#Événements thromboemboliques	HP:0001907#
 0#Évolution non progressive	HP:0003680#
