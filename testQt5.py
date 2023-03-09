@@ -212,7 +212,7 @@ class fenetre(QMainWindow):
         
         #Translation of all elements: ENGLISH version
         self.label_langue.setText('Please choose a language:')
-        self.label_aide.setText('Phen2HPO allows clinical geneticists to enter the phenotypic characteristics of their patients in order to obtain a list with the corresponding HPO (Human Phenotype Ontology) characteristics. \n In the Phen2HPO interface, you can: \n Choose the language thanks to the heading "Language" located in the menu bar (English or French at your choice).\n Enter one or more phenotypes thanks to the heading "Phenotype entry" located in my menu bar: in the field "Please select a phenotype", you can enter a phenotype. Once the phenotype is added, you can see it displayed in the field "Patients phenotype list". Also, it is possible for you to delete a phenotype by selecting it and clicking on the "Delete the selected element" button or save this list in .txt and .csv format with "Export". \More detailed information can be found in the user manual provided.')
+        self.label_aide.setText('In the Phen2HPO interface, you can: \n\n --> Choose the language using the "Language" section.\n\n --> Enter one or more phenotypes using the "Phenotype entry" section. Also, it is possible to delete a phenotype by selecting it and clicking on the "Delete selected element" button. \n\n --> It is also possible to save this list in .csv format using the "Save" button. \n\n\n You can find more detailed information in the user manual present in the folder with the application executable.')
         self.label_aide.setWordWrap(True)
         self.label_1.setText('Please select a phenotype:')
         self.label_2.setText('Patients phenotype list:')
@@ -248,7 +248,7 @@ class fenetre(QMainWindow):
         self.language = "FR"
         #Translation of all elements: FRENCH version
         self.label_langue.setText('Veuillez choisir la langue de l\'application :')
-        self.label_aide.setText('Dans l\'interface Phen2HPO, vous pouvez : \n\n --> Choisir la langue grâce à la rubrique "Langue".\n\n --> Saisir un ou plusieurs phénotypes grâce à la rubrique "Saisie phénotype". Également, il est possible d\'effacer un phénotype en le sélectionnant et en cliquant sur le bouton "Supprimer l\'élément sélectionné". \n\n --> Il est également possible d\'enregistrer cette liste au format .csv grâce au boutton "Enregistrer". \n\n\n Vous pouvez retrouver des informations plus détaillées dans le manuel utilisateur présent dans le dossier avec l\'exécutable de l\'application.')
+        self.label_aide.setText('Dans l\'interface Phen2HPO, vous pouvez : \n\n --> Choisir la langue grâce à la rubrique "Langue".\n\n --> Saisir un ou plusieurs phénotypes grâce à la rubrique "Saisie phénotype". Également, il est possible d\'effacer un phénotype en le sélectionnant et en cliquant sur le bouton "Supprimer l\'élément sélectionné". \n\n --> Il est également possible d\'enregistrer cette liste au format .csv grâce au bouton "Enregistrer". \n\n\n Vous pouvez retrouver des informations plus détaillées dans le manuel utilisateur présent dans le dossier avec l\'exécutable de l\'application.')
         self.label_aide.setWordWrap(True)
         self.label_1.setText('Veuillez saisir un phénotype :')
         self.label_2.setText('Liste des phénotypes du patient :')
