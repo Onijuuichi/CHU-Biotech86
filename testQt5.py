@@ -242,7 +242,7 @@ class fenetre(QMainWindow):
     def on_francaisButton_clicked(self):
         if self.listWidget.count() != 0 :
             msg= QMessageBox()
-            msg.setText("Attention, cette liste va être vidée !\nBecarefull, the list will be emptied!")
+            msg.setText("Attention, cette liste va être vidée !\nBe careful, the list will be emptied!")
             msg.exec()
         #Changing the interface language to FRENCH
         self.language = "FR"
